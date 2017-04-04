@@ -9,5 +9,5 @@ public:
     void Write(string location, string data);
     void Read(string location);
     void CopyFile(char *SourceFile, char *NewFile);
-    void DeleteFile();
+    void DeleteFile(string location);
 };
