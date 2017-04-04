@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+#define  ElemType int
+
+struct Node 
+{
+    ElemType data;
+    Node *next;
+};
+
+struct LinkQueue 
+{
+    Node *front;
+    Node *rear;
+};
+
+int InitQueue(LinkQueue *Q)
+{
+    Q->front = new Node;
+    if (Q->front != NULL)
+    {
+        Q->rear = Q->front;
+        Q->front->next = NULL;
+        return 0;
+    }
+    else
+        return -1;
+}
+
+int EnterQueue(LinkQueue *Q,ElemType x)
+{
+    Node *newnode;
+    newnode = new Node;
+    if (newnode != NULL)
+    {
+        newnode->data = x;
+        newnode->next = NULL;
+        Q->rear->next = newnode;
+        Q->rear = newnode;
+        return 0;
+    }
+    else
+        return -1;
+}
