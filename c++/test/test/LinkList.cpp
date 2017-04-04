@@ -43,12 +43,34 @@ int EnterQueue(LinkQueue *Q,ElemType x)
         return -1;
 }
 
-int DeleteQueue(LinkQueue *Q, ElemType x)
+int DeleteQueue(LinkQueue *Q,ElemType *x)
 {
     Node *p;
     if (Q->front==Q->rear)
     {
         return -1;
     }
-    
+    p = Q->front->next;
+    Q->front->next = p->next;
+    if (Q->rear==p)
+    {
+        Q->rear = Q->front;
+    }
+    *x = p->data;
+    delete p;
+    p = NULL;
+    return 0;
+}
+
+
+void main()
+{
+    int x;
+    LinkQueue L;
+    InitQueue(&L);
+    EnterQueue(&L,2);
+    EnterQueue(&L, 3);
+    DeleteQueue(&L, &x);
+
+
 }
