@@ -42,3 +42,13 @@ int EnterQueue(LinkQueue *Q,ElemType x)
     else
         return -1;
 }
+
+int DeleteQueue(LinkQueue *Q, ElemType x)
+{
+    Node *p;
+    if (Q->front==Q->rear)
+    {
+        return -1;
+    }
+    
+}
