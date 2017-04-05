@@ -62,15 +62,3 @@ int DeleteQueue(LinkQueue *Q,ElemType *x)
     return 0;
 }
 
-
-void main()
-{
-    int x;
-    LinkQueue L;
-    InitQueue(&L);
-    EnterQueue(&L,2);
-    EnterQueue(&L, 3);
-    DeleteQueue(&L, &x);
-
-
-}
