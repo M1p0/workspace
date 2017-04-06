@@ -10,11 +10,9 @@ void FileIO::Create(string location)
 
 void FileIO::Write(string location, string data)
 {
-
     ofstream WriteFile(location,ios::app);
     WriteFile << data;
     WriteFile.close();
-    
 }
 
 void FileIO::Read(string location)
