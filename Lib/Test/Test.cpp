@@ -21,7 +21,7 @@ void Merge(Link &List1, Link &List2, Link &List3)
         }
         else
         {
-            List3.Insert(t->Data); 
+            List3.Insert(t->Data);
             len2--;
             t = t->Next;
         }
