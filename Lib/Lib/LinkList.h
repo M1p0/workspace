@@ -17,4 +17,4 @@ public:
     void Set_Loop(int start, int end);
     void Check_Loop();
     int  Length();
-}; 
+};
