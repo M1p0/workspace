@@ -21,7 +21,7 @@ void Link::Output()
     }
     cout << endl;
 }
-
+ 
 int Link::Length()
 {
     int length = 0;
@@ -81,7 +81,7 @@ void Link::Check_Loop()
 
     while (1)
     {
-        if (head == NULL || head->Next == NULL)//Á´±íÎª¿Õ»òÕßÖ»ÓĞÒ»¸ö½áµã
+        if (head == NULL || head->Next == NULL)//é“¾è¡¨ä¸ºç©ºæˆ–è€…åªæœ‰ä¸€ä¸ªç»“ç‚¹
         {
             cout << "Not Loop!" << endl;
             break;
@@ -90,12 +90,12 @@ void Link::Check_Loop()
         {
             fast = fast->Next->Next;
             slow = slow->Next;
-            if (fast == slow)//²»Í¬ËÙ¶ÈµÄÖ¸ÕëÏàÓö ËµÃ÷Á´±í³É»·
+            if (fast == slow)//ä¸åŒé€Ÿåº¦çš„æŒ‡é’ˆç›¸é‡ è¯´æ˜é“¾è¡¨æˆç¯
             {
                 cout << "isLoop!" << endl;
                 break;
             }
-            if (fast->Next == NULL || slow->Next == NULL)//Next==Null¼´slow»òfastÎª×îºóÒ»¸ö½áµã ²»¿ÉÄÜ³É»·
+            if (fast->Next == NULL || slow->Next == NULL)//Next==Nullå³slowæˆ–fastä¸ºæœ€åä¸€ä¸ªç»“ç‚¹ ä¸å¯èƒ½æˆç¯
             {
                 cout << "Not Loop!" << endl;
                 break;

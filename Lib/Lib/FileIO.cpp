@@ -14,7 +14,7 @@ void FileIO::Write(string location, string data)
     WriteFile << data;
     WriteFile.close();
 }
-
+ 
 void FileIO::Read(string location)
 {
     char buffer[256];
