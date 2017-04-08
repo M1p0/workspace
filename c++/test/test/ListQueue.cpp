@@ -13,7 +13,7 @@ struct LinkQueue
     Node *front;
     Node *rear;
 };
-
+ 
 int InitQueue(LinkQueue *Q)
 {
     Q->front = new Node;

@@ -23,7 +23,7 @@ int EnterQueue(SeqQueue *Q, ElemType x)
     }
     Q->elem[Q->rear] = x;
     Q->rear = (Q->rear + 1) % MAXSIZE;
-    return 0;
+    return 0; 
 
 }
 

@@ -11,3 +11,4 @@ public:
     void CopyFile(char *SourceFile, char *NewFile);
     void DeleteFile(string location);
 };
+ 

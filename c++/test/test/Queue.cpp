@@ -12,7 +12,7 @@ struct SeqQueue
     int rear;
     int tag;
 };
-
+ 
 void InitQueue(SeqQueue *Q)
 {
     Q->front = Q->rear = 0;
