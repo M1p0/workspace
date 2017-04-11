@@ -1,6 +1,23 @@
-int DeleteQueue(SeqQueue *Q, int *x);   //出队
-int PopStack(SeqStack *S, int *x);   //出栈
 
+struct SeqQueue
+{
+    .....
+}
+
+struct SeqStack
+{
+    .....
+}
+
+int DeleteQueue(SeqQueue *Q, int *x);   //出队
+{
+    .....
+}
+
+int PopStack(SeqStack *S, int *x);   //出栈
+{
+    .....
+}
 
 int Judge(SeqQueue *Q, SeqStack *S)
 {
