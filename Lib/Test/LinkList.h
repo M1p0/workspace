@@ -4,13 +4,12 @@ struct  node
     node *Next;
 };
 
-class Link
+class LinkList
 {
 private:
-
-public:
     node *head;
-    Link() { head = NULL; }
+public:
+    LinkList() { head = NULL; }
     void Insert(int value);
     void Delete_Value(int value);
     void Delete_Pos(int pos);
@@ -18,8 +17,4 @@ public:
     void Set_Loop(int start, int end);
     void Check_Loop();
     int  Length();
-
-     
-
-
 };

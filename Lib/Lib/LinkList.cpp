@@ -3,7 +3,7 @@
 using namespace std;
 
 
-void Link::Insert(int value)
+void LinkList::Insert(int value)
 {
     node *newnode = new node;
     newnode->Data = value;
@@ -11,7 +11,7 @@ void Link::Insert(int value)
     head = newnode;
 }
 
-void Link::Output()
+void LinkList::Output()
 {
     node *current = head;
     while (current != NULL)
@@ -22,7 +22,7 @@ void Link::Output()
     cout << endl;
 }
  
-int Link::Length()
+int LinkList::Length()
 {
     int length = 0;
     node *current = head;
@@ -34,7 +34,7 @@ int Link::Length()
     return length;
 }
 
-void Link::Delete_Value(int value)
+void LinkList::Delete_Value(int value)
 {
 
     node *p = head;
@@ -54,15 +54,26 @@ void Link::Delete_Value(int value)
     }
 }
 
-void Link::Delete_Pos(int pos)
+void LinkList::Delete_Pos(int pos)
 {
     node *p = head;
-    node *t = new node;
+    node *Del = new node;
     node *next = new node;
-
+    int counter=1;
+    while (counter!=pos-1)
+    {
+        counter++;
+        p = p->Next;
+    }
+    Del = p->Next;
+    next = Del->Next;  //未完成
+    p->Next = next;
+    delete Del;
+    Del = NULL;
+    
 }
 
-void Link::Set_Loop(int start, int end)
+void LinkList::Set_Loop(int start, int end)
 {
     node *Loop_start = head;
     node *Loop_end = head;
@@ -73,7 +84,7 @@ void Link::Set_Loop(int start, int end)
     Loop_end->Next = Loop_start;
 }
 
-void Link::Check_Loop()
+void LinkList::Check_Loop()
 {
 
     node *fast = head;
