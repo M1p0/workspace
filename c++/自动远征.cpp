@@ -3,13 +3,20 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
-using namespace::std;
+using namespace std;
 //x2,y2为补给时选择舰队的坐标 x2,y2为补给舰队的坐标
 //x3,y3为远征坐标  x4,y4为选择远征后选择舰队的坐标  z远征时间(适当延迟)
 //x5,y5为选择海域坐标
 //a,b分别为远征编号以及舰队编号
 //Check1函数判断远征
 //Check2函数判断舰队 并调整延迟时间
+
+struct Map
+{
+    int x;
+    int y;
+};
+
 string a, b, str;
 int  x2, y2, x3, y3, x4, y4, x5, y5, z1,z2;
 int Check1(string a);
@@ -17,6 +24,14 @@ int Check2(string b);
 int Check3(string a);
 void main()
 {
+
+    Map a[3][3] =
+    {
+        { {0,0},{0,1},{0,2} },
+        { {1,1},{1,2},{1,3} },
+        { {2,1},{2,2},{2,3} }
+    };
+
     srand((unsigned)time(NULL));
     cout << "请输入远征编号如:1-1" << endl;
     cin >> a;
