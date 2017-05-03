@@ -1,21 +1,11 @@
 #include <iostream>
 #include "LinkList.h"
+#include "FileIO.h"
 using namespace std;
 
 int main()
 {
-    LinkList ListA;
-    for (int i=0;i<5;i++)
-    {
-        ListA.Insert(i);
-    }
 
-    ListA.Output();
-    ListA.Delete_Pos(5);
-    ListA.Output();
-
-
-
-    
-
+    FileIO F;
+    F.ListDir();
 }

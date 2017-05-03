@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <windows.h>
 using namespace std;
 class FileIO
 {
@@ -10,5 +11,6 @@ public:
     void Read(string location);
     void CopyFile(char *SourceFile, char *NewFile);
     void DeleteFile(string location);
+    void ListDir();
 };
  

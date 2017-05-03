@@ -62,3 +62,21 @@ void FileIO::CopyFile(char *SourceFile, char *NewFile)
     }
 
 }
+
+
+void FileIO::ListDir()
+{
+    WIN32_FIND_DATA FileData;
+    HANDLE hSearch;
+    BOOL finished = FALSE;
+    LPCTSTR lpFileName = L"D:\\*.*";
+
+    hSearch= FindFirstFile(L"D:\\\*.*", &FileData);
+
+    while (FindNextFile(hSearch, &FileData))
+    {
+    
+        cout << "得到文件：" << FileData.cFileName<< endl;
+    }
+    
+}
