@@ -33,11 +33,11 @@ void FileIO::Read(string location)
 }
 
 
-void FileIO::CopyFile(char *SourceFile, char *NewFile)
+void FileIO::CopyFile(string SourceFile,string NewFile)
 {
     ifstream in;
     ofstream out;
-    in.open(SourceFile, ios::binary);
+    in.open(SourceFile.c_str(), ios::binary);
     if (in.fail())
     {
         cout << "Fail to open the source file" << endl;
@@ -45,7 +45,7 @@ void FileIO::CopyFile(char *SourceFile, char *NewFile)
         out.close();
         return;
     }
-    out.open(NewFile, ios::binary);
+    out.open(NewFile.c_str(), ios::binary);
     if (out.fail())
     {
         cout << "Fail to create the new File" << endl;
@@ -64,19 +64,44 @@ void FileIO::CopyFile(char *SourceFile, char *NewFile)
 }
 
 
-void FileIO::ListDir()
+void FileIO::ListDir(LPCTSTR lpFileName)
 {
     WIN32_FIND_DATA FileData;
     HANDLE hSearch;
-    BOOL finished = FALSE;
-    LPCTSTR lpFileName = L"D:\\*.*";
 
-    hSearch= FindFirstFile(L"D:\\\*.*", &FileData);
-
+    hSearch= FindFirstFile(lpFileName, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
     
         cout << "得到文件：" << FileData.cFileName<< endl;
     }
     
+}
+
+void FileIO::Backup()
+{
+
+    string  szPath, szTemp;
+    cout << "请输入文件地址:" << endl;
+    cin >> szPath;
+    szTemp = szPath;
+    szPath += "\\*.*";
+
+
+    LPCTSTR lpPath;
+    lpPath = szPath.c_str();
+
+    ListDir(lpPath);
+
+    string source;
+    string target;
+    cout << "请输入原文件名:" << endl;
+    cin >> source;
+    source = szTemp + source;
+
+    cout << "请输入拷贝地址:" << endl;
+    cin >> target;
+
+    Create(target);
+    CopyFile(source, target);
 }

@@ -1,5 +1,6 @@
 ﻿#include <windows.h>
-#include<iostream>
+#include <iostream>
+#include <string>
 using namespace std;
 void main()
 {
@@ -9,4 +10,6 @@ void main()
     hFind = FindFirstFile(L"d:\\Flashtool\\*.jar", &FindFileData);
     wcout << FindFileData.cFileName << endl;
     FindClose(hFind);
+
 }
+

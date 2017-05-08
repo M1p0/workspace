@@ -9,7 +9,7 @@ class LinkList
 private:
     node *head;
 public:
-    LinkList() { head = NULL; }
+    LinkList() { head = NULL; }  
     void Insert(int value);
     void Delete_Value(int value);
     void Delete_Pos(int pos);

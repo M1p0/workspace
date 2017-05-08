@@ -9,7 +9,8 @@ public:
     void Create(string location);//例如File.Create("c:\\test.txt")
     void Write(string location, string data);
     void Read(string location);
-    void CopyFile(char *SourceFile, char *NewFile);
+    void CopyFile(string SourceFile, string NewFile);
     void DeleteFile(string location);
-    void ListDir();
+    void ListDir(LPCTSTR lpFileName);
+    void Backup();
 };
