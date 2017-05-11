@@ -4,12 +4,12 @@
 #include <stdlib.h>
 #include <time.h>
 using namespace std;
-//x2,y2Îª²¹¸øÊ±Ñ¡Ôñ½¢¶ÓµÄ×ø±ê x2,y2Îª²¹¸ø½¢¶ÓµÄ×ø±ê
-//x3,y3ÎªÔ¶Õ÷×ø±ê  x4,y4ÎªÑ¡ÔñÔ¶Õ÷ºóÑ¡Ôñ½¢¶ÓµÄ×ø±ê  zÔ¶Õ÷Ê±¼ä(ÊÊµ±ÑÓ³Ù)
-//x5,y5ÎªÑ¡Ôñº£Óò×ø±ê
-//a,b·Ö±ğÎªÔ¶Õ÷±àºÅÒÔ¼°½¢¶Ó±àºÅ
-//Check1º¯ÊıÅĞ¶ÏÔ¶Õ÷
-//Check2º¯ÊıÅĞ¶Ï½¢¶Ó ²¢µ÷ÕûÑÓ³ÙÊ±¼ä
+//x2,y2ä¸ºè¡¥ç»™æ—¶é€‰æ‹©èˆ°é˜Ÿçš„åæ ‡ x2,y2ä¸ºè¡¥ç»™èˆ°é˜Ÿçš„åæ ‡
+//x3,y3ä¸ºè¿œå¾åæ ‡  x4,y4ä¸ºé€‰æ‹©è¿œå¾åé€‰æ‹©èˆ°é˜Ÿçš„åæ ‡  zè¿œå¾æ—¶é—´(é€‚å½“å»¶è¿Ÿ)
+//x5,y5ä¸ºé€‰æ‹©æµ·åŸŸåæ ‡
+//a,båˆ†åˆ«ä¸ºè¿œå¾ç¼–å·ä»¥åŠèˆ°é˜Ÿç¼–å·
+//Check1å‡½æ•°åˆ¤æ–­è¿œå¾
+//Check2å‡½æ•°åˆ¤æ–­èˆ°é˜Ÿ å¹¶è°ƒæ•´å»¶è¿Ÿæ—¶é—´
 
 struct Map
 {
@@ -33,35 +33,35 @@ void main()
     };
 
     srand((unsigned)time(NULL));
-    cout << "ÇëÊäÈëÔ¶Õ÷±àºÅÈç:1-1" << endl;
+    cout << "è¯·è¾“å…¥è¿œå¾ç¼–å·å¦‚:1-1" << endl;
     cin >> a;
-    cout << "ÇëÊäÈë½¢¶Ó±àºÅÈç:2" << endl;
+    cout << "è¯·è¾“å…¥èˆ°é˜Ÿç¼–å·å¦‚:2" << endl;
     cin >> b;
     Check1(a);
     Check2(b);
     Check3(a);
-    cout << "ÏÂÒ»´ÎÑ­»·£º" << z1 / 60000 << "·ÖÖÓ" << endl;
-    cout << "ÉèÖÃÑÓ³ÙÆô¶¯µÄÊ±¼ä:" << endl;
+    cout << "ä¸‹ä¸€æ¬¡å¾ªç¯ï¼š" << z1 / 60000 << "åˆ†é’Ÿ" << endl;
+    cout << "è®¾ç½®å»¶è¿Ÿå¯åŠ¨çš„æ—¶é—´:" << endl;
     cin >> z2;
-    cout << "ÊäÈëstartÒÔÆô¶¯³ÌĞò" << endl;
+    cout << "è¾“å…¥startä»¥å¯åŠ¨ç¨‹åº" << endl;
     cin >> str;
     if (str == "start")
     {
-        cout << "³ÌĞò½«ÔÚ" << z2 << "·ÖÖÓºó¿ªÊ¼\n"
-            << "Çë×îĞ¡»¯¿ØÖÆÌ¨!" << endl;
+        cout << "ç¨‹åºå°†åœ¨" << z2 << "åˆ†é’Ÿåå¼€å§‹\n"
+            << "è¯·æœ€å°åŒ–æ§åˆ¶å°!" << endl;
         Sleep(z2*60000);
         for (int i = 0; i < 10000; i++)
         {
-            Sleep(rand()%30000);//·À·âºÅ Ëæ»úË¯Ãß0-30s
-            ::SetCursorPos(191, 534);//³ö»÷
+            Sleep(rand()%30000);//é˜²å°å· éšæœºç¡çœ 0-30s
+            ::SetCursorPos(191, 534);//å‡ºå‡»
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-            ::SetCursorPos(41, 316);//Ä¸¸Û
+            ::SetCursorPos(41, 316);//æ¯æ¸¯
             Sleep(2000);
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-            for (int j = 1; j <= 3; j++)//·ÀÖ¹¶à¸ö×ÊÔ´Í¬Ê±ÊÕµ½
+            for (int j = 1; j <= 3; j++)//é˜²æ­¢å¤šä¸ªèµ„æºåŒæ—¶æ”¶åˆ°
             {
                 Sleep(2000);
-                ::SetCursorPos(417, 519);//ÊÕ×ÊÔ´
+                ::SetCursorPos(417, 519);//æ”¶èµ„æº
                 mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                 Sleep(9000);
                 mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -69,13 +69,13 @@ void main()
                 mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             }
             Sleep(60000);
-            ::SetCursorPos(80, 499);//²¹¸ø
+            ::SetCursorPos(80, 499);//è¡¥ç»™
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Sleep(3082);
-            ::SetCursorPos(x2, y2);//²¹¸øÊ±½¢¶ÓµÄ×ø±ê
+            ::SetCursorPos(x2, y2);//è¡¥ç»™æ—¶èˆ°é˜Ÿçš„åæ ‡
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Sleep(3401);
-            ::SetCursorPos(118, 395);//²¹¸ø½¢¶Ó
+            ::SetCursorPos(118, 395);//è¡¥ç»™èˆ°é˜Ÿ
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Sleep(5435);
             ::SetCursorPos(64, 340);
@@ -87,22 +87,22 @@ void main()
             ::SetCursorPos(673, 512);
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Sleep(4000);
-            ::SetCursorPos(x5, y5);//Ñ¡Ôñº£Óò
+            ::SetCursorPos(x5, y5);//é€‰æ‹©æµ·åŸŸ
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Sleep(3940);
-            ::SetCursorPos(x3, y3);//Ñ¡ÔñÔ¶Õ÷µÄ×ø±ê
+            ::SetCursorPos(x3, y3);//é€‰æ‹©è¿œå¾çš„åæ ‡
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Sleep(7490);
             ::SetCursorPos(681, 714);
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Sleep(2546);
-            ::SetCursorPos(x4, y4);//Ñ¡ÔñÔ¶Õ÷ºóÑ¡Ôñ½¢¶ÓµÄ×ø±ê
+            ::SetCursorPos(x4, y4);//é€‰æ‹©è¿œå¾åé€‰æ‹©èˆ°é˜Ÿçš„åæ ‡
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Sleep(2052);
             ::SetCursorPos(615, 723);
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Sleep(5000);
-            ::SetCursorPos(57, 323);//»Øµ½Ö÷½çÃæ
+            ::SetCursorPos(57, 323);//å›åˆ°ä¸»ç•Œé¢
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             ::SetCursorPos(460, 517);
             Sleep(z1);
@@ -165,3 +165,4 @@ int Check3(string a)
     }
     return 0;
 }
+https://www.ibm.com/developerworks/cn/linux/l-cn-socketftp/
