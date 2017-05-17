@@ -116,7 +116,7 @@ void FileIO::Backup()
         GetDir(lpPath);
         cout << "ÇëÊäÈë¿½±´µØÖ·:" << endl;
         cin >> szTarget;
-        for (int i=0;Path[i].szName!="\t";i++)
+        for (int i=1;Path[i].szName!="\t";i++)
         {
             string szSourceTmp;
             string szTargetTmp;
