@@ -85,8 +85,8 @@ void FileIO::GetDir(LPCTSTR lpFileName)
     hSearch = FindFirstFile(lpFileName, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
-        Path[i].szName=FileData.cFileName;
-        Path[i + 1].szName = "\t";
+        Name[i].szName=FileData.cFileName;
+        Name[i + 1].szName = "\t";
         i++;
     }
 }
@@ -98,7 +98,7 @@ void FileIO::Backup()
     string  szPath, szTemp;
     cout << "请输入文件地址:" << endl;
     cin >> szPath;
-    szTemp = szPath;
+    szTemp = szPath+"\\";
     szPath += "\\*.*";
 
 
@@ -116,12 +116,13 @@ void FileIO::Backup()
         GetDir(lpPath);
         cout << "请输入拷贝地址:" << endl;
         cin >> szTarget;
-        for (int i=1;Path[i].szName!="\t";i++)
+        szTarget = szTarget + "\\";
+        for (int i=1;Name[i].szName!="\t";i++)
         {
             string szSourceTmp;
             string szTargetTmp;
-            szSourceTmp= szTemp + Path[i].szName;
-            szTargetTmp = szTarget + Path[i].szName;
+            szSourceTmp= szTemp + Name[i].szName;
+            szTargetTmp = szTarget + Name[i].szName;
 
             Copy(szSourceTmp, szTargetTmp);
         }
@@ -132,6 +133,7 @@ void FileIO::Backup()
         szSource = szTemp + szSource;
         cout << "请输入拷贝地址:" << endl;
         cin >> szTarget;
+        szTarget = szTarget + "\\";
         cout << "请输入新文件名:" << endl;
         cin >> szTarget_Name;
         szTarget = szTarget + szTarget_Name;

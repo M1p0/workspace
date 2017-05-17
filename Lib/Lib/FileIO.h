@@ -13,7 +13,7 @@ struct File_Name
 class FileIO
 {
 public:
-    File_Name Path[256];
+    File_Name Name[256];
     void GetDir(LPCTSTR lpFileName);
     void Create(string location);//例如File.Create("c:\\test.txt")
     void Write(string location, string data);
@@ -23,4 +23,3 @@ public:
     void ListDir(LPCTSTR lpFileName);
     void Backup();
 };
- 
