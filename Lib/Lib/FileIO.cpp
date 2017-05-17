@@ -33,14 +33,14 @@ void FileIO::Read(string location)
 }
 
 
-void FileIO::CopyFile(string SourceFile,string NewFile)
+void FileIO::Copy(string SourceFile,string NewFile)
 {
     ifstream in;
     ofstream out;
     in.open(SourceFile.c_str(), ios::binary);
     if (in.fail())
     {
-        cout << "Fail to open the source file" << endl;
+        cout << "Fail to open source file" << endl;
         in.close();
         out.close();
         return;
@@ -48,7 +48,7 @@ void FileIO::CopyFile(string SourceFile,string NewFile)
     out.open(NewFile.c_str(), ios::binary);
     if (out.fail())
     {
-        cout << "Fail to create the new File" << endl;
+        cout << "Fail to create new file" << endl;
         in.close();
         out.close();
         return;
@@ -72,14 +72,28 @@ void FileIO::ListDir(LPCTSTR lpFileName)
     hSearch= FindFirstFile(lpFileName, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
-    
         cout << "得到文件：" << FileData.cFileName<< endl;
     }
-    
+}
+
+
+void FileIO::GetDir(LPCTSTR lpFileName)
+{
+    WIN32_FIND_DATA FileData;
+    HANDLE hSearch;
+    int i = 0;
+    hSearch = FindFirstFile(lpFileName, &FileData);
+    while (FindNextFile(hSearch, &FileData))
+    {
+        Path[i].szName=FileData.cFileName;
+        Path[i + 1].szName = "\t";
+        i++;
+    }
 }
 
 void FileIO::Backup()
 {
+
 
     string  szPath, szTemp;
     cout << "请输入文件地址:" << endl;
@@ -90,18 +104,38 @@ void FileIO::Backup()
 
     LPCTSTR lpPath;
     lpPath = szPath.c_str();
-
     ListDir(lpPath);
 
-    string source;
-    string target;
+    string szSource;
+    string szTarget;
+    string szTarget_Name;
     cout << "请输入原文件名:" << endl;
-    cin >> source;
-    source = szTemp + source;
+    cin >> szSource;
+    if (szSource=="*")
+    {
+        GetDir(lpPath);
+        cout << "请输入拷贝地址:" << endl;
+        cin >> szTarget;
+        for (int i=0;Path[i].szName!="\t";i++)
+        {
+            string szSourceTmp;
+            string szTargetTmp;
+            szSourceTmp= szTemp + Path[i].szName;
+            szTargetTmp = szTarget + Path[i].szName;
 
-    cout << "请输入拷贝地址:" << endl;
-    cin >> target;
+            Copy(szSourceTmp, szTargetTmp);
+        }
 
-    Create(target);
-    CopyFile(source, target);
+    }
+    else
+    {
+        szSource = szTemp + szSource;
+        cout << "请输入拷贝地址:" << endl;
+        cin >> szTarget;
+        cout << "请输入新文件名:" << endl;
+        cin >> szTarget_Name;
+        szTarget = szTarget + szTarget_Name;
+        Copy(szSource, szTarget);
+    }
+
 }
