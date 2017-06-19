@@ -10,21 +10,21 @@ void FileIO::Create(string location)
 
 void FileIO::Write(string location, string data)
 {
-    ofstream WriteFile(location,ios::app);
+    ofstream WriteFile(location, ios::app);
     WriteFile << data;
     WriteFile.close();
 }
- 
+
 void FileIO::Read(string location)
 {
     char buffer[256];
     ifstream ReadFile(location);
     if (!ReadFile.is_open())
     {
-        cout << "Fail to Read the file" << endl;
+        cout << "Failed to Read the file" << endl;
         return;
     }
-    while (!ReadFile.eof())
+    while (!ReadFile.eof())                //或cout<<ReadFile.rdbuf()
     {
         ReadFile.getline(buffer, 100);
         cout << buffer << endl;
@@ -33,14 +33,14 @@ void FileIO::Read(string location)
 }
 
 
-void FileIO::Copy(string SourceFile,string NewFile)
+void FileIO::Copy(string SourceFile, string NewFile)
 {
     ifstream in;
     ofstream out;
     in.open(SourceFile.c_str(), ios::binary);
     if (in.fail())
     {
-        cout << "Fail to open source file" << endl;
+        cout << "Failed to open source file" << endl;
         in.close();
         out.close();
         return;
@@ -48,7 +48,7 @@ void FileIO::Copy(string SourceFile,string NewFile)
     out.open(NewFile.c_str(), ios::binary);
     if (out.fail())
     {
-        cout << "Fail to create new file" << endl;
+        cout << "Failed to create new file" << endl;
         in.close();
         out.close();
         return;
@@ -64,15 +64,17 @@ void FileIO::Copy(string SourceFile,string NewFile)
 }
 
 
+
 void FileIO::ListDir(LPCTSTR lpFileName)
 {
     WIN32_FIND_DATA FileData;
     HANDLE hSearch;
 
-    hSearch= FindFirstFile(lpFileName, &FileData);
+    hSearch = FindFirstFile(lpFileName, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
-        cout << "得到文件：" << FileData.cFileName<< endl;
+        cout << "得到文件：" << FileData.cFileName << endl;
+        //cout << FileData.dwFileAttributes << endl; //若为文件夹 则数值为16
     }
 }
 
@@ -81,15 +83,28 @@ void FileIO::GetDir(LPCTSTR lpFileName)
 {
     WIN32_FIND_DATA FileData;
     HANDLE hSearch;
-    int i = 0;
+    int i = 0;  //一般文件计数器
+    int x = 0; //文件夹计数器
     hSearch = FindFirstFile(lpFileName, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
-        Name[i].szName=FileData.cFileName;
-        Name[i + 1].szName = "\t";
-        i++;
+        if (FileData.dwFileAttributes == 16)
+        {
+            Folder[x].szName = FileData.cFileName;
+            Folder[x + 1].szName = "\t";
+            x++;
+        }
+        else
+        {
+            Name[i].szName = FileData.cFileName;
+            Name[i + 1].szName = "\t";
+            i++;
+        }
     }
 }
+
+
+
 
 void FileIO::Backup()
 {
@@ -98,7 +113,7 @@ void FileIO::Backup()
     string  szPath, szTemp;
     cout << "请输入文件地址:" << endl;
     cin >> szPath;
-    szTemp = szPath+"\\";
+    szTemp = szPath + "\\";
     szPath += "\\*.*";
 
 
@@ -111,22 +126,20 @@ void FileIO::Backup()
     string szTarget_Name;
     cout << "请输入原文件名:" << endl;
     cin >> szSource;
-    if (szSource=="*")
+    if (szSource == "*")
     {
         GetDir(lpPath);
         cout << "请输入拷贝地址:" << endl;
         cin >> szTarget;
         szTarget = szTarget + "\\";
-        for (int i=1;Name[i].szName!="\t";i++)
+        for (int i = 0; Name[i].szName != "\t"; i++)
         {
             string szSourceTmp;
             string szTargetTmp;
-            szSourceTmp= szTemp + Name[i].szName;
+            szSourceTmp = szTemp + Name[i].szName;
             szTargetTmp = szTarget + Name[i].szName;
-
             Copy(szSourceTmp, szTargetTmp);
         }
-
     }
     else
     {
@@ -138,6 +151,10 @@ void FileIO::Backup()
         cin >> szTarget_Name;
         szTarget = szTarget + szTarget_Name;
         Copy(szSource, szTarget);
+    }
+    for (int x = 0; x < 10; x++) //输出文件夹名称 测试用
+    {
+        cout << Folder[x].szName << endl;
     }
 
 }
