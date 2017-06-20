@@ -106,7 +106,7 @@ void FileIO::GetDir(LPCTSTR lpFileName)
 
 
 
-void FileIO::Backup()
+void FileIO::Backup()  //功能不完善 需要修改
 {
 
 
