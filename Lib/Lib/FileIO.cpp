@@ -79,67 +79,67 @@ void FileIO::ListDir(LPCTSTR lpFileName)
 }
 
 
-void FileIO::GetDir(LPCTSTR lpFileName)
+
+
+void FileIO::CopyFolder(string szPath, string szTarget)
 {
+    string szTemp;
+    LPCTSTR lpFolder;
     WIN32_FIND_DATA FileData;
     HANDLE hSearch;
-    int i = 0;  //一般文件计数器
-    int x = 0; //文件夹计数器
-    hSearch = FindFirstFile(lpFileName, &FileData);
+    szTemp = szPath;
+    szPath = szPath + "\\*.*";
+    lpFolder = szPath.c_str();
+    hSearch = FindFirstFile(lpFolder, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
         if (FileData.dwFileAttributes == 16)
         {
-            Folder[x].szName = FileData.cFileName;
-            Folder[x + 1].szName = "\t";
-            x++;
+            if (FileData.cFileName[0] == '.') //排除本级目录和父级目录
+                continue;
+            string *NewFolder = new string(szTemp);
+            *NewFolder = *NewFolder + "\\" + FileData.cFileName; //新目录
+            string *NewTarget = new string(szTarget);
+            *NewTarget = *NewTarget + "\\" + FileData.cFileName;  //更改目标至文件夹
+            CreateDirectory(NewTarget->c_str(), NULL); //在目标目录内创建文件夹
+            CopyFolder(*NewFolder, *NewTarget);
         }
         else
         {
-            Name[i].szName = FileData.cFileName;
-            Name[i + 1].szName = "\t";
-            i++;
+            string *szSource = new string(szTemp);
+            string *Target = new string(szTarget);
+            *Target = *Target + "\\" + FileData.cFileName;
+            *szSource = *szSource + "\\" + FileData.cFileName;
+            Copy(*szSource, *Target);
         }
+
     }
 }
 
 
 
-
-void FileIO::Backup()  //功能不完善 需要修改
+void FileIO::Backup() //功能不完善 需要修改
 {
-
-
-    string  szPath, szTemp;
-    cout << "请输入文件地址:" << endl;
-    cin >> szPath;
-    szTemp = szPath + "\\";
-    szPath += "\\*.*";
-
-
-    LPCTSTR lpPath;
-    lpPath = szPath.c_str();
-    ListDir(lpPath);
-
     string szSource;
+    string szPath;
+    string Temp;
+
+    cout << "请输入文件目录:" << endl;
+    cin >> szPath;
+    Temp = szPath + "\\*.*";
+    ListDir(Temp.c_str());
+    cout << "请输入文件名:" << endl;
+    cin >> szSource;
+
+    string szTemp = szPath + "\\";
     string szTarget;
     string szTarget_Name;
-    cout << "请输入原文件名:" << endl;
-    cin >> szSource;
     if (szSource == "*")
     {
-        GetDir(lpPath);
-        cout << "请输入拷贝地址:" << endl;
+        cout << "请输入目标地址:" << endl;
         cin >> szTarget;
         szTarget = szTarget + "\\";
-        for (int i = 0; Name[i].szName != "\t"; i++)
-        {
-            string szSourceTmp;
-            string szTargetTmp;
-            szSourceTmp = szTemp + Name[i].szName;
-            szTargetTmp = szTarget + Name[i].szName;
-            Copy(szSourceTmp, szTargetTmp);
-        }
+        CopyFolder(szPath, szTarget);
     }
     else
     {
@@ -152,9 +152,4 @@ void FileIO::Backup()  //功能不完善 需要修改
         szTarget = szTarget + szTarget_Name;
         Copy(szSource, szTarget);
     }
-    for (int x = 0; x < 10; x++) //输出文件夹名称 测试用
-    {
-        cout << Folder[x].szName << endl;
-    }
-
 }

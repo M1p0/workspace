@@ -1,5 +1,5 @@
 #include "Sort.h"
-#include<iostream>
+#include <iostream>
 #include <string>
 using namespace std;
 int Bubble_Sort(int str[], int length)

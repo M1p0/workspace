@@ -28,8 +28,8 @@ void main()
     Map a[3][3] =
     {
         { {0,0},{0,1},{0,2} },
-        { {1,1},{1,2},{1,3} },
-        { {2,1},{2,2},{2,3} }
+        { {1,0},{1,1},{1,2} },
+        { {2,0},{2,1},{2,2} }
     };
 
     srand((unsigned)time(NULL));
@@ -165,4 +165,4 @@ int Check3(string a)
     }
     return 0;
 }
-https://www.ibm.com/developerworks/cn/linux/l-cn-socketftp/
+
