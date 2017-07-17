@@ -10,31 +10,44 @@ void FileIO::Create(string location)
 
 void FileIO::Write(string location, string data)
 {
-    ofstream WriteFile(location, ios::app);
-    WriteFile << data;
+    ofstream WriteFile(location, ios::app|ios::binary);
+    WriteFile.write(data.c_str(),data.size());
+    WriteFile.flush();
     WriteFile.close();
 }
 
-void FileIO::Read(string location)
+void FileIO::Read(string location,int mode)
 {
+    char ch;
     char buffer[256];
-    ifstream ReadFile(location);
+    ifstream ReadFile(location,ios::binary);
     if (!ReadFile.is_open())
     {
         cout << "Failed to Read the file" << endl;
         return;
     }
-    while (!ReadFile.eof())                //或cout<<ReadFile.rdbuf()
+    while (ReadFile.peek()!=EOF)                //或cout<<ReadFile.rdbuf()
     {
-        ReadFile.getline(buffer, 100);
-        cout << buffer << endl;
+        if (mode==1)
+        {
+            ReadFile.get(ch);   //二进制方式
+            cout << ch;
+        }
+        if (mode==0)
+        {
+            ReadFile.getline(buffer, 100);  //文本方式
+            cout << buffer << endl;
+        }
     }
+
 
 }
 
 
 void FileIO::Copy(string SourceFile, string NewFile)
 {
+    string data;
+    char ch;
     ifstream in;
     ofstream out;
     in.open(SourceFile.c_str(), ios::binary);
@@ -55,11 +68,18 @@ void FileIO::Copy(string SourceFile, string NewFile)
     }
     else
     {
-        out << in.rdbuf();
-        out.close();
-        in.close();
-        return;
+        while (in.peek()!=EOF) //二进制方式写入文件
+        {
+            
+            in.get(ch);
+            data = ch;
+            out.write(data.c_str(), data.size());  //每次仅读写一字节 效率需要优化
+            out.flush();
+        }
     }
+    out.close();
+    in.close();
+    return;
 
 }
 
@@ -73,7 +93,10 @@ void FileIO::ListDir(LPCTSTR lpFileName)
     hSearch = FindFirstFile(lpFileName, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
-        cout << "得到文件：" << FileData.cFileName << endl;
+        if (FileData.dwFileAttributes==16)
+            cout << "文件夹:" << FileData.cFileName << endl;
+        else
+            cout << "文件：" << FileData.cFileName << endl;
         //cout << FileData.dwFileAttributes << endl; //若为文件夹 则数值为16
     }
 }
@@ -153,3 +176,5 @@ void FileIO::Backup() //功能不完善 需要修改
         Copy(szSource, szTarget);
     }
 }
+
+

@@ -14,7 +14,7 @@ void LinkList::Insert(int value)
 void LinkList::Output()
 {
     node *current = head;
-    while (current != NULL)
+    while (current != nullptr)
     {
         cout << current->Data << "\t";
         current = current->Next;
@@ -26,7 +26,7 @@ int LinkList::Length()
 {
     int length = 0;
     node *current = head;
-    while (current != NULL)
+    while (current != nullptr)
     {
         length++;
         current = current->Next;
@@ -40,14 +40,14 @@ void LinkList::Delete_Value(int value)
     node *p = head;
     node *t = new node;
     //node *next = new node;
-    while (p->Next != NULL)
+    while (p->Next != nullptr)
     {
         if (p->Next->Data == value)
         {
             t = p->Next;
             p->Next = t->Next;
             delete t;
-            t = NULL;
+            t = nullptr;
         }
         else
             p = p->Next;
@@ -69,7 +69,7 @@ void LinkList::Delete_Pos(int pos)
     next = Del->Next;  //未完成
     p->Next = next;
     delete Del;
-    Del = NULL;
+    Del = nullptr;
     
 }
 
@@ -92,7 +92,7 @@ void LinkList::Check_Loop()
 
     while (1)
     {
-        if (head == NULL || head->Next == NULL)//链表为空或者只有一个结点
+        if (head == nullptr || head->Next == nullptr)//链表为空或者只有一个结点
         {
             cout << "Not Loop!" << endl;
             break;
@@ -106,7 +106,7 @@ void LinkList::Check_Loop()
                 cout << "isLoop!" << endl;
                 break;
             }
-            if (fast->Next == NULL || slow->Next == NULL)//Next==Null即slow或fast为最后一个结点 不可能成环
+            if (fast->Next == nullptr || slow->Next == nullptr)//Next==Null即slow或fast为最后一个结点 不可能成环
             {
                 cout << "Not Loop!" << endl;
                 break;

@@ -14,4 +14,6 @@ int main()
         File.Backup();
     }
 
+    //File.Read("D:\\test.txt",1);
+
 }
