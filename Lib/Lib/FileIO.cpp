@@ -10,34 +10,37 @@ void FileIO::Create(string location)
 
 void FileIO::Write(string location, string data)
 {
-    ofstream WriteFile(location, ios::app|ios::binary);
-    WriteFile.write(data.c_str(),data.size());
+    ofstream WriteFile(location, ios::app | ios::binary);
+    WriteFile.write(data.c_str(), data.size());
     WriteFile.flush();
     WriteFile.close();
 }
 
-void FileIO::Read(string location,int mode)
+void FileIO::Read(string location, int mode)
 {
     char ch;
-    char buffer[256];
-    ifstream ReadFile(location,ios::binary);
+    char *buffer;
+    ifstream ReadFile(location, ios::binary);
     if (!ReadFile.is_open())
     {
         cout << "Failed to Read the file" << endl;
         return;
     }
-    while (ReadFile.peek()!=EOF)                //或cout<<ReadFile.rdbuf()
+
+    if (mode == 1)
     {
-        if (mode==1)
-        {
-            ReadFile.get(ch);   //二进制方式
-            cout << ch;
-        }
-        if (mode==0)
-        {
-            ReadFile.getline(buffer, 100);  //文本方式
-            cout << buffer << endl;
-        }
+        ReadFile.seekg(0, ios::end); //定位指针到最后
+        long size = ReadFile.tellg();  //获取文件大小
+        ReadFile.seekg(0, ios::beg);//重新定位指针至文件头
+        buffer = new char[size];
+        ReadFile.read(buffer, size);
+        cout << buffer << endl;
+        delete[]buffer;
+    }
+    if (mode == 0)
+    {
+        ReadFile.seekg(0, ios::beg);
+        cout << ReadFile.rdbuf() << endl;  //文本方式
     }
 
 
@@ -47,9 +50,9 @@ void FileIO::Read(string location,int mode)
 void FileIO::Copy(string SourceFile, string NewFile)
 {
     string data;
-    char ch;
     ifstream in;
     ofstream out;
+    char* buffer;
     in.open(SourceFile.c_str(), ios::binary);
     if (in.fail())
     {
@@ -68,14 +71,14 @@ void FileIO::Copy(string SourceFile, string NewFile)
     }
     else
     {
-        while (in.peek()!=EOF) //二进制方式写入文件
-        {
-            
-            in.get(ch);
-            data = ch;
-            out.write(data.c_str(), data.size());  //每次仅读写一字节 效率需要优化
-            out.flush();
-        }
+        in.seekg(0, ios::end); //定位指针到最后
+        long size = in.tellg();  //获取文件大小
+        in.seekg(0, ios::beg);//重新定位指针至文件头
+        buffer = new char[size];
+        in.read(buffer, size);
+        out.write(buffer, size);
+        out.flush();
+        delete[]buffer;
     }
     out.close();
     in.close();
@@ -93,7 +96,7 @@ void FileIO::ListDir(LPCTSTR lpFileName)
     hSearch = FindFirstFile(lpFileName, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
-        if (FileData.dwFileAttributes==16)
+        if (FileData.dwFileAttributes == 16)
             cout << "文件夹:" << FileData.cFileName << endl;
         else
             cout << "文件：" << FileData.cFileName << endl;
