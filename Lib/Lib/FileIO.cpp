@@ -18,7 +18,6 @@ void FileIO::Write(string location, string data)
 
 void FileIO::Read(string location, int mode)
 {
-    char ch;
     char *buffer;
     ifstream ReadFile(location, ios::binary);
     if (!ReadFile.is_open())
@@ -49,7 +48,6 @@ void FileIO::Read(string location, int mode)
 
 void FileIO::Copy(string SourceFile, string NewFile)
 {
-    string data;
     ifstream in;
     ofstream out;
     char* buffer;
@@ -72,7 +70,7 @@ void FileIO::Copy(string SourceFile, string NewFile)
     else
     {
         in.seekg(0, ios::end); //定位指针到最后
-        long size = in.tellg();  //获取文件大小
+        long size = in.tellg();  //获取文件大小     大文件拷贝存在问题
         in.seekg(0, ios::beg);//重新定位指针至文件头
         buffer = new char[size];
         in.read(buffer, size);
@@ -80,8 +78,8 @@ void FileIO::Copy(string SourceFile, string NewFile)
         out.flush();
         delete[]buffer;
     }
-    out.close();
     in.close();
+    out.close();
     return;
 
 }
@@ -138,7 +136,6 @@ void FileIO::CopyFolder(string szPath, string szTarget)
             *szSource = *szSource + "\\" + FileData.cFileName;
             Copy(*szSource, *Target);
         }
-
     }
 }
 

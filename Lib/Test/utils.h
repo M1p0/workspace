@@ -3,5 +3,5 @@
 using namespace std;
 
 string getcmd();
-
+void test();
 
