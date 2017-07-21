@@ -115,6 +115,7 @@ void FileIO::CopyFolder(string szPath, string szTarget)
     szPath = szPath + "\\*.*";
     lpFolder = szPath.c_str();
     hSearch = FindFirstFile(lpFolder, &FileData);
+    CreateDirectory(szTarget.c_str(), NULL);   //创建父级目录
     while (FindNextFile(hSearch, &FileData))
     {
         if (FileData.dwFileAttributes == 16)
@@ -127,6 +128,8 @@ void FileIO::CopyFolder(string szPath, string szTarget)
             *NewTarget = *NewTarget + "\\" + FileData.cFileName;  //更改目标至文件夹
             CreateDirectory(NewTarget->c_str(), NULL); //在目标目录内创建文件夹
             CopyFolder(*NewFolder, *NewTarget);
+            delete NewFolder;
+            delete NewTarget;
         }
         else
         {
@@ -135,6 +138,8 @@ void FileIO::CopyFolder(string szPath, string szTarget)
             *Target = *Target + "\\" + FileData.cFileName;
             *szSource = *szSource + "\\" + FileData.cFileName;
             Copy(*szSource, *Target);
+            delete szSource;
+            delete Target;
         }
     }
 }
