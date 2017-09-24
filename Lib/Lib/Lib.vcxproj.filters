@@ -30,6 +30,9 @@
     <ClCompile Include="CFileIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="timecost.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkList.h">
