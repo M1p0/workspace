@@ -5,6 +5,8 @@
 #include "FileIO.h"
 using namespace std;
 
+
+
 int main()
 {
     //FileIO File;
@@ -15,8 +17,5 @@ int main()
     //    File.Backup();
     //}
     //File.Read("D:\\test.txt");
-    test();
-
-
-
+    //test();
 }

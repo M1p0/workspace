@@ -1,21 +1,21 @@
 #include "utils.h"
 using namespace std;
 
-void transfer(string &str,int mode)
+void transfer(string &str, int mode)
 {
-    if (mode==1)
+    if (mode == 1)
     {
         for (auto &c : str)
         {
             c = toupper(c);
         }
     }
-    else if (mode==2)
+    else if (mode == 2)
     {
         for (auto &c : str)
         {
             c = tolower(c);
         }
     }
-
 }
+

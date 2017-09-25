@@ -15,7 +15,7 @@ void timecost(int(*ptr)(int a, int b), int a, int b)
     DWORD start;
     DWORD end;
     start = GetTickCount();
-    ptr(a, b);
+    ptr(a,b);
     end = GetTickCount();
     cout << "time cost:" << end - start << endl;
 }
