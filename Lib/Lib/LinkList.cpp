@@ -1,7 +1,4 @@
-#include <iostream>
 #include "LinkList.h"
-using namespace std;
-
 
 void LinkList::Insert(int value)
 {

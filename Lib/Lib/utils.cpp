@@ -1,5 +1,4 @@
 #include "utils.h"
-using namespace std;
 
 void transfer(string &str, int mode)
 {

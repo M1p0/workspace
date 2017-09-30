@@ -1,6 +1,5 @@
 #include "FileIO.h"
-#include <iostream>
-using namespace std;
+
 
 void FileIO::Create(string location)
 {
