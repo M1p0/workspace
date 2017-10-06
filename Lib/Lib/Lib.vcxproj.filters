@@ -33,6 +33,9 @@
     <ClCompile Include="timecost.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Hw_event.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkList.h">
@@ -45,6 +48,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CFileIO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Hw_event.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

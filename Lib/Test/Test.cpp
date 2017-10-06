@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "FileIO.h"
 #include "CFileIO.h"
+#include "Hw_event.h"
 using namespace std;
 
 
@@ -19,9 +20,11 @@ int main()
     //}
     //File.Read("D:\\test.txt");
     //test();
-    CFileIO File;
-    string a;
-    a=File.Read("d:\\test2\\1.txt");
-    cout << a << endl;
-    File.Write("d:\\test2\\2.txt", a);
+    SetDelay(3000);
+    SetMouse(484, 376);
+    LeftDown();
+    SetDelay(1000);
+    SetMouse(495, 376);
+    LeftUp();
+
 }

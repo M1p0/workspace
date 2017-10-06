@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="CFileIO.cpp" />
     <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="Hw_event.cpp" />
     <ClCompile Include="LinkList.cpp" />
     <ClCompile Include="timecost.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="CFileIO.h" />
     <ClInclude Include="FileIO.h" />
+    <ClInclude Include="Hw_event.h" />
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>

@@ -3,7 +3,7 @@
 string CFileIO::Read(string szPath, string szMode)
 {
     string result;
-    char temp[buffer];
+    char temp[buffer];  //√ø¥Œ∂¡»°1MB
     FILE *p = fopen(szPath.c_str(), szMode.c_str());
     if (p == NULL)
     {
@@ -11,7 +11,7 @@ string CFileIO::Read(string szPath, string szMode)
     }
     else
     {
-        while (fgets(temp, 1000, p) != NULL)
+        while (fgets(temp, buffer, p) != NULL)
         {
             result += temp;
         }
