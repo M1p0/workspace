@@ -3,7 +3,7 @@
 string CFileIO::Read(string szPath, string szMode)
 {
     string result;
-    char temp[buffer];  //Ã¿´Î¶ÁÈ¡1MB
+    char temp[buffer];  //æ¯æ¬¡è¯»å–1MB
     FILE *p = fopen(szPath.c_str(), szMode.c_str());
     if (p == NULL)
     {
@@ -20,7 +20,7 @@ string CFileIO::Read(string szPath, string szMode)
     return result;
 }
 
-void CFileIO::Write(string szPath, string szData, string szMode)   //Î´µ¥¶ÀÉèÖÃbuffer Ò»´ÎĞÔĞ´Èë
+void CFileIO::Write(string szPath, string szData, string szMode)   //æœªå•ç‹¬è®¾ç½®buffer ä¸€æ¬¡æ€§å†™å…¥
 {
     FILE *p = fopen(szPath.c_str(), szMode.c_str());
     if (p == NULL)

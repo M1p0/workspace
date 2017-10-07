@@ -1,14 +1,8 @@
 #pragma once
+#include <windows.h>
 
-
-struct Pos
-{
-    int x = 0;
-    int y = 0;
-};
-
-void SetMouse(Pos pos);
-void SetMouse(int x,int y);
+void SetMouse(POINT pos);
+void SetMouse(int x, int y);
 void LeftDown();
 void LeftUp();
 void RightDown();
@@ -16,4 +10,5 @@ void RightUp();
 void LeftClick();
 void RightClick();
 void SetDelay(int time);
-
+void Mouse_MoveTo(POINT start, POINT end);
+void Drag(POINT start, POINT end);

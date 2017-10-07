@@ -21,10 +21,6 @@ int main()
     //File.Read("D:\\test.txt");
     //test();
     SetDelay(3000);
-    SetMouse(484, 376);
-    LeftDown();
-    SetDelay(1000);
-    SetMouse(495, 376);
-    LeftUp();
+
 
 }

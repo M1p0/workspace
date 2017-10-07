@@ -27,9 +27,9 @@ void FileIO::Read(string location, int mode)
 
     if (mode == 1)
     {
-        ReadFile.seekg(0, ios::end); //¶¨Î»Ö¸Õëµ½×îºó
-        long size = ReadFile.tellg();  //»ñÈ¡ÎÄ¼ş´óĞ¡
-        ReadFile.seekg(0, ios::beg);//ÖØĞÂ¶¨Î»Ö¸ÕëÖÁÎÄ¼şÍ·
+        ReadFile.seekg(0, ios::end); //å®šä½æŒ‡é’ˆåˆ°æœ€å
+        long size = ReadFile.tellg();  //è·å–æ–‡ä»¶å¤§å°
+        ReadFile.seekg(0, ios::beg);//é‡æ–°å®šä½æŒ‡é’ˆè‡³æ–‡ä»¶å¤´
         buffer = new char[size];
         ReadFile.read(buffer, size);
         cout << buffer << endl;
@@ -38,14 +38,14 @@ void FileIO::Read(string location, int mode)
     if (mode == 0)
     {
         ReadFile.seekg(0, ios::beg);
-        cout << ReadFile.rdbuf() << endl;  //ÎÄ±¾·½Ê½
+        cout << ReadFile.rdbuf() << endl;  //æ–‡æœ¬æ–¹å¼
     }
 
 
 }
 
 
-void FileIO::Copy(string SourceFile, string NewFile)   //ÎŞ·¨¿½±´µ½²»´æÔÚµÄÄ¿Â¼ 
+void FileIO::Copy(string SourceFile, string NewFile)   //æ— æ³•æ‹·è´åˆ°ä¸å­˜åœ¨çš„ç›®å½• 
 {
     ifstream in;
     ofstream out;
@@ -68,10 +68,10 @@ void FileIO::Copy(string SourceFile, string NewFile)   //ÎŞ·¨¿½±´µ½²»´æÔÚµÄÄ¿Â¼
     }
     else
     {
-        DWORD R, W;    //RÎª¶ÁÈ¡Ê±¼ä WÎªĞ´ÈëÊ±¼ä
-        in.seekg(0, ios::end); //¶¨Î»Ö¸Õëµ½×îºó
-        long size = in.tellg();  //»ñÈ¡ÎÄ¼ş´óĞ¡     ´óÎÄ¼ş¿½±´´æÔÚÎÊÌâ
-        in.seekg(0, ios::beg);//ÖØĞÂ¶¨Î»Ö¸ÕëÖÁÎÄ¼şÍ·
+        DWORD R, W;    //Rä¸ºè¯»å–æ—¶é—´ Wä¸ºå†™å…¥æ—¶é—´
+        in.seekg(0, ios::end); //å®šä½æŒ‡é’ˆåˆ°æœ€å
+        long size = in.tellg();  //è·å–æ–‡ä»¶å¤§å°     å¤§æ–‡ä»¶æ‹·è´å­˜åœ¨é—®é¢˜
+        in.seekg(0, ios::beg);//é‡æ–°å®šä½æŒ‡é’ˆè‡³æ–‡ä»¶å¤´
         buffer = new char[size];
         R = GetTickCount();
         in.read(buffer, size);
@@ -99,10 +99,10 @@ void FileIO::ListDir(LPCTSTR lpFileName)
     while (FindNextFile(hSearch, &FileData))
     {
         if (FileData.dwFileAttributes == 16)
-            cout << "ÎÄ¼ş¼Ğ:" << FileData.cFileName << endl;
+            cout << "æ–‡ä»¶å¤¹:" << FileData.cFileName << endl;
         else
-            cout << "ÎÄ¼ş£º" << FileData.cFileName << endl;
-        //cout << FileData.dwFileAttributes << endl; //ÈôÎªÎÄ¼ş¼Ğ ÔòÊıÖµÎª16
+            cout << "æ–‡ä»¶:" << FileData.cFileName << endl;
+        //cout << FileData.dwFileAttributes << endl; //è‹¥ä¸ºæ–‡ä»¶å¤¹ åˆ™æ•°å€¼ä¸º16
     }
 }
 
@@ -119,18 +119,18 @@ void FileIO::CopyFolder(string szPath, string szTarget)
     szPath = szPath + "\\*.*";
     lpFolder = szPath.c_str();
     hSearch = FindFirstFile(lpFolder, &FileData);
-    CreateDirectory(szTarget.c_str(), NULL);   //´´½¨¸¸¼¶Ä¿Â¼
+    CreateDirectory(szTarget.c_str(), NULL);   //åˆ›å»ºçˆ¶çº§ç›®å½•
     while (FindNextFile(hSearch, &FileData))
     {
         if (FileData.dwFileAttributes == 16)
         {
-            if (FileData.cFileName[0] == '.') //ÅÅ³ı±¾¼¶Ä¿Â¼ºÍ¸¸¼¶Ä¿Â¼
+            if (FileData.cFileName[0] == '.') //æ’é™¤æœ¬çº§ç›®å½•å’Œçˆ¶çº§ç›®å½•
                 continue;
             string *NewFolder = new string(szTemp);
-            *NewFolder = *NewFolder + "\\" + FileData.cFileName; //ĞÂÄ¿Â¼
+            *NewFolder = *NewFolder + "\\" + FileData.cFileName; //æ–°ç›®å½•
             string *NewTarget = new string(szTarget);
-            *NewTarget = *NewTarget + "\\" + FileData.cFileName;  //¸ü¸ÄÄ¿±êÖÁÎÄ¼ş¼Ğ
-            CreateDirectory(NewTarget->c_str(), NULL); //ÔÚÄ¿±êÄ¿Â¼ÄÚ´´½¨ÎÄ¼ş¼Ğ
+            *NewTarget = *NewTarget + "\\" + FileData.cFileName;  //æ›´æ”¹ç›®æ ‡è‡³æ–‡ä»¶å¤¹
+            CreateDirectory(NewTarget->c_str(), NULL); //åœ¨ç›®æ ‡ç›®å½•å†…åˆ›å»ºæ–‡ä»¶å¤¹
             CopyFolder(*NewFolder, *NewTarget);
             delete NewFolder;
             delete NewTarget;
@@ -150,17 +150,17 @@ void FileIO::CopyFolder(string szPath, string szTarget)
 
 
 
-void FileIO::Backup() //¹¦ÄÜ²»ÍêÉÆ ĞèÒªĞŞ¸Ä
+void FileIO::Backup() //åŠŸèƒ½ä¸å®Œå–„ éœ€è¦ä¿®æ”¹
 {
     string szSource;
     string szPath;
     string Temp;
 
-    cout << "ÇëÊäÈëÎÄ¼şÄ¿Â¼:" << endl;
+    cout << "è¯·è¾“å…¥æ–‡ä»¶ç›®å½•:" << endl;
     cin >> szPath;
     Temp = szPath + "\\*.*";
     ListDir(Temp.c_str());
-    cout << "ÇëÊäÈëÎÄ¼şÃû:" << endl;
+    cout << "è¯·è¾“å…¥æ–‡ä»¶å:" << endl;
     cin >> szSource;
 
     string szTemp = szPath + "\\";
@@ -168,7 +168,7 @@ void FileIO::Backup() //¹¦ÄÜ²»ÍêÉÆ ĞèÒªĞŞ¸Ä
     string szTarget_Name;
     if (szSource == "*")
     {
-        cout << "ÇëÊäÈëÄ¿±êµØÖ·:" << endl;
+        cout << "è¯·è¾“å…¥ç›®æ ‡åœ°å€:" << endl;
         cin >> szTarget;
         szTarget = szTarget + "\\";
         CopyFolder(szPath, szTarget);
@@ -176,10 +176,10 @@ void FileIO::Backup() //¹¦ÄÜ²»ÍêÉÆ ĞèÒªĞŞ¸Ä
     else
     {
         szSource = szTemp + szSource;
-        cout << "ÇëÊäÈë¿½±´µØÖ·:" << endl;
+        cout << "è¯·è¾“å…¥æ‹·è´åœ°å€:" << endl;
         cin >> szTarget;
         szTarget = szTarget + "\\";
-        cout << "ÇëÊäÈëĞÂÎÄ¼şÃû:" << endl;
+        cout << "è¯·è¾“å…¥æ–°æ–‡ä»¶å:" << endl;
         cin >> szTarget_Name;
         szTarget = szTarget + szTarget_Name;
         Copy(szSource, szTarget);

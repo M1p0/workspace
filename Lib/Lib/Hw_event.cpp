@@ -1,10 +1,11 @@
-#include <iostream>
-#include <windows.h>
-#include <string>
 #include "Hw_event.h"
+#include "utils.h"
 using namespace std;
 
-void SetMouse(Pos pos)
+
+
+
+void SetMouse(POINT pos)
 {
     SetCursorPos(pos.x, pos.y);
 }
@@ -52,10 +53,77 @@ void SetDelay(int time)
     Sleep(time);
 }
 
-void move(Pos start, Pos end)
+void Mouse_MoveTo(POINT start, POINT end)
 {
-    int xstep = end.x - start.x;
-    int ystep = end.y - start.y;
-    int step = xstep < ystep ? xstep : ystep;
+    POINT point1, point2, temp;
+    double x, y;
+    point1 = start;
+    temp = point1;
+    point2 = end;
+    SetMouse(point1);
+    if (point1.x == point2.x)
+    {
+        x = point1.x;
+        for (int i = MIN(point1.y, point2.y); i <= MAX(point1.y, point2.y); i++)
+        {
+            y = temp.y;
+            if (point1.y < point2.y)
+            {
+                temp.y++;
+            }
+            else
+            {
+                temp.y--;
+            }
+            SetMouse(x, y);
+            Sleep(100);
+        }
+    }
 
+    else if (point1.y == point2.y)
+    {
+        y = point1.y;
+        for (int i = MIN(point1.x, point2.x); i <= MAX(point1.x, point2.x); i++)
+        {
+            x = temp.x;
+            if (point1.x < point2.x)
+            {
+                temp.x++;
+            }
+            else
+            {
+                temp.x--;
+            }
+            SetMouse(x, y);
+            Sleep(100);
+        }
+    }
+
+    else
+    {
+        for (int i = MIN(point1.x, point2.x); i <= MAX(point1.x, point2.x); i++)
+        {
+            x = temp.x;
+            y = (x - point1.x)*(point2.y - point1.y) / (point2.x - point1.x) + point1.y;
+            if (point1.x < point2.x)
+            {
+                temp.x++;
+            }
+            else
+            {
+                temp.x--;
+            }
+            SetMouse(x, y);
+            Sleep(1);
+        }
+    }
+
+}
+
+void Drag(POINT start, POINT end)
+{
+    SetMouse(start);
+    LeftDown();
+    Mouse_MoveTo(start, end);
+    LeftUp();
 }
