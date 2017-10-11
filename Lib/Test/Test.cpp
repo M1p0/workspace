@@ -20,7 +20,10 @@ int main()
     //}
     //File.Read("D:\\test.txt");
     //test();
-    SetDelay(3000);
-
+    CFileIO File;
+    string s;
+    s=File.Read("d:\\test.txt");
+    cout << s << endl;
+    cout<<"pos:"<<s.find("222")<<endl;
 
 }
