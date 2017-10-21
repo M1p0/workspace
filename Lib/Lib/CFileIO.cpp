@@ -1,5 +1,5 @@
 #include "CFileIO.h"
-#define buffer 1024        //1MB
+static const int buffer = 1024;        //1MB
 string CFileIO::Read(string szPath, string szMode)
 {
     string result;

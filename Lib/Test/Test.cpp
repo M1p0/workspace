@@ -20,10 +20,13 @@ int main()
     //}
     //File.Read("D:\\test.txt");
     //test();
-    CFileIO File;
-    string s;
-    s=File.Read("d:\\test.txt");
-    cout << s << endl;
-    cout<<"pos:"<<s.find("222")<<endl;
+    //CFileIO File;
+    //string s;
+    //s=File.Read("d:\\test.txt");
+    //cout << s << endl;
+    //cout<<"pos:"<<s.find("222")<<endl;
+
+    FileIO File;
+    File.CopyFolder("d:\\test2", "d:\\test3");
 
 }

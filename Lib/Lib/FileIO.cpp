@@ -98,11 +98,12 @@ void FileIO::ListDir(LPCTSTR lpFileName)
     hSearch = FindFirstFile(lpFileName, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
-        if (FileData.dwFileAttributes == 16)
+        if (FileData.dwFileAttributes & 16)  
             cout << "文件夹:" << FileData.cFileName << endl;
         else
             cout << "文件:" << FileData.cFileName << endl;
-        //cout << FileData.dwFileAttributes << endl; //若为文件夹 则数值为16
+        //cout << FileData.dwFileAttributes << endl; //若包含文件夹属性 则数值为16 
+                                                     //由于可以有多个属性 所以需要用&
     }
 }
 
@@ -122,7 +123,7 @@ void FileIO::CopyFolder(string szPath, string szTarget)
     CreateDirectory(szTarget.c_str(), NULL);   //创建父级目录
     while (FindNextFile(hSearch, &FileData))
     {
-        if (FileData.dwFileAttributes == 16)
+        if (FileData.dwFileAttributes & 16)
         {
             if (FileData.cFileName[0] == '.') //排除本级目录和父级目录
                 continue;
