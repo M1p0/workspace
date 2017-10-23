@@ -102,7 +102,7 @@ void FileIO::ListDir(LPCTSTR lpFileName)
             cout << "文件夹:" << FileData.cFileName << endl;
         else
             cout << "文件:" << FileData.cFileName << endl;
-        //cout << FileData.dwFileAttributes << endl; //若包含文件夹属性 则数值为16 
+        //cout << FileData.dwFileAttributes << endl; //文件夹属性为16
                                                      //由于可以有多个属性 所以需要用&
     }
 }
