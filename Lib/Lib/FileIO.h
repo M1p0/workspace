@@ -10,11 +10,11 @@ class FileIO
 public:
     FileIO()
     {
-        std::ios::sync_with_stdio(false);   //å…³é—­ä¸stdioçš„åŒæ­¥ åŠ å¿«I/Oé€Ÿåº¦
+        std::ios::sync_with_stdio(false);   //¹Ø±ÕÓëstdioµÄÍ¬²½ ¼Ó¿ìI/OËÙ¶È
     }
-    void Create(string location);//ä¾‹å¦‚File.Create("c:\\test.txt")
+    void Create(string location);//ÀıÈçFile.Create("c:\\test.txt")
     void Write(string location, string data);
-    void Read(string location, int mode = 0);  //0ä¸ºæ–‡æœ¬æ–¹å¼ 1ä¸ºäºŒè¿›åˆ¶æ–¹å¼ 
+    void Read(string location, int mode = 0);  //0ÎªÎÄ±¾·½Ê½ 1Îª¶ş½øÖÆ·½Ê½ 
     void Copy(string SourceFile, string NewFile);
     void ListDir(LPCTSTR lpFileName);
     void Backup();

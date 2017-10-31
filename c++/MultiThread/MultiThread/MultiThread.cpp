@@ -23,7 +23,6 @@ unsigned __stdcall PrintA(void *pArgument)
         cout << "A" << endl;
     }
     _endthreadex(0);
-    return 0;
     
 }
 
@@ -35,7 +34,6 @@ unsigned __stdcall PrintB(void *pArgument)
         cout << "B" << endl;
     }
     _endthreadex(0);
-    return 0;
 }
 
 
@@ -51,7 +49,6 @@ unsigned __stdcall Stop(void *pArgument)
         break;
     }
     _endthreadex(0);
-    return 0;
 }
 
 

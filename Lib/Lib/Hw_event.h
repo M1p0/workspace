@@ -12,3 +12,4 @@ void RightClick();
 void SetDelay(int time);
 void Mouse_MoveTo(POINT start, POINT end);
 void Drag(POINT start, POINT end);
+ 

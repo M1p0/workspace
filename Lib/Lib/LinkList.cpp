@@ -63,7 +63,7 @@ void LinkList::Delete_Pos(int pos)
         p = p->Next;
     }
     Del = p->Next;
-    next = Del->Next;  //æœªå®Œæˆ
+    next = Del->Next;  //Î´Íê³É
     p->Next = next;
     delete Del;
     Del = nullptr;
@@ -89,7 +89,7 @@ void LinkList::Check_Loop()
 
     while (1)
     {
-        if (head == nullptr || head->Next == nullptr)//é“¾è¡¨ä¸ºç©ºæˆ–è€…åªæœ‰ä¸€ä¸ªç»“ç‚¹
+        if (head == nullptr || head->Next == nullptr)//Á´±íÎª¿Õ»òÕßÖ»ÓĞÒ»¸ö½áµã
         {
             cout << "Not Loop!" << endl;
             break;
@@ -98,12 +98,12 @@ void LinkList::Check_Loop()
         {
             fast = fast->Next->Next;
             slow = slow->Next;
-            if (fast == slow)//ä¸åŒé€Ÿåº¦çš„æŒ‡é’ˆç›¸é‡ è¯´æ˜é“¾è¡¨æˆç¯
+            if (fast == slow)//²»Í¬ËÙ¶ÈµÄÖ¸ÕëÏàÓö ËµÃ÷Á´±í³É»·
             {
                 cout << "isLoop!" << endl;
                 break;
             }
-            if (fast->Next == nullptr || slow->Next == nullptr)//Next==Nullå³slowæˆ–fastä¸ºæœ€åä¸€ä¸ªç»“ç‚¹ ä¸å¯èƒ½æˆç¯
+            if (fast->Next == nullptr || slow->Next == nullptr)//Next==Null¼´slow»òfastÎª×îºóÒ»¸ö½áµã ²»¿ÉÄÜ³É»·
             {
                 cout << "Not Loop!" << endl;
                 break;
