@@ -53,5 +53,8 @@
     <ClInclude Include="Hw_event.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FileIO_DLL.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <windows.h>
+
 using namespace std;
 void transfer(string &str, int mode); //mode function
                                       //1    toupper
@@ -29,3 +31,9 @@ int Match(T data, T array[], int length)   //string not included
     }
     return 0;
 };
+
+
+int Program_Mutex();  //return  (int)nRet
+                      //nRet=0  create mutex succeed
+                      //nRet=1  program is already running
+                      //nRet=-1 create mutex failed

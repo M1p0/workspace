@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="CFileIO.h" />
     <ClInclude Include="FileIO.h" />
+    <ClInclude Include="FileIO_DLL.h" />
     <ClInclude Include="Hw_event.h" />
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="utils.h" />
