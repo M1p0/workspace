@@ -1,35 +1,122 @@
 #include "CFileIO.h"
-static const int buffer = 1024;        //1MB
-string CFileIO::Read(string szPath, string szMode)
+#include "windows.h"
+
+
+
+
+void CFileIO::GetSize(char* szPath)
 {
-    string result;
-    char temp[buffer];  //每次读取1MB
-    FILE *p = fopen(szPath.c_str(), szMode.c_str());
+    FILE *p = fopen(szPath, "rb+");;
     if (p == NULL)
     {
         cout << "Read Failed!" << endl;
     }
     else
     {
-        while (fgets(temp, buffer, p) != NULL)
-        {
-            result += temp;
-        }
+        fseek(p, 0, SEEK_END);
+        FileSize = ftell(p);
+        rewind(p);
     }
-    fclose(p);
-    return result;
 }
 
-void CFileIO::Write(string szPath, string szData, string szMode)   //未单独设置buffer 一次性写入
+
+
+char* CFileIO::Read(char* szPath, long offset, long size)
 {
-    FILE *p = fopen(szPath.c_str(), szMode.c_str());
+    char* buff = NULL;
+    FILE *p = fopen(szPath, "rb+");
+    if (p == NULL)
+    {
+        cout << "Read Failed!" << endl;
+    }
+    else
+    {
+        fseek(p, offset, SEEK_SET);
+        buff = new char[size];
+        memset(buff, 0, size);
+        fread(buff, 1, size, p);
+    }
+
+    fclose(p);
+    return buff;
+}
+
+void CFileIO::Write(char* szPath, char* szData, long offset, long Size)
+{
+    FILE *p = fopen(szPath, "ab+");
     if (p == NULL)
     {
         cout << "Failed to open File!" << endl;
     }
     else
     {
-        fputs(szData.c_str(), p);
+        fseek(p, offset, SEEK_SET);
+        fwrite(szData, 1, Size, p);
     }
     fclose(p);
+}
+
+void CFileIO::Copy(char* SourceFile, char* NewFile)
+{
+    GetSize(SourceFile);
+    long offset = 0;
+    long total_size = 0;
+    while (true)
+    {
+        char* buff = Read(SourceFile, offset, buff_size);
+        Write(NewFile, buff, offset, buff_size);
+        offset = offset + buff_size;
+        total_size = total_size + buff_size;
+
+        if (total_size >= FileSize)
+            break;
+
+    }
+
+}
+
+void CFileIO::CopyA(char* SourceFile, char* NewFile)
+{
+    long Rest = 0;
+    char* buff = NULL;
+    GetSize(SourceFile);
+    Rest = FileSize;
+    FILE *p = fopen(SourceFile, "rb+");
+    FILE *fs = fopen(NewFile, "wb+");
+    if (p == NULL || fs == NULL)
+    {
+        cout << "Read Failed!" << endl;
+    }
+    else
+    {
+
+        while (Rest>0)
+        {
+            if (Rest<buff_size)
+            {
+                buff = new char[Rest];
+                memset(buff, 0, Rest);
+                fread(buff, Rest, 1, p);
+                fwrite(buff, Rest, 1, fs);
+                delete buff;
+                buff = NULL;
+                Rest = 0;
+            }
+            else
+            {
+                buff = new char[buff_size];
+                memset(buff, 0, buff_size);
+                //fgets(buff, buff_size, p);
+                fread(buff, buff_size, 1, p);
+                //fputs(buff, fs);
+                fwrite(buff, buff_size, 1, fs);
+                delete buff;
+                buff = NULL;
+                Rest = Rest - buff_size;
+            }
+        }
+    }
+    fclose(p);
+    fclose(fs);
+
 }

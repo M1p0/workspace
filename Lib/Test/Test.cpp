@@ -8,7 +8,6 @@
 using namespace std;
 
 
-
 int main()
 {
     //FileIO File;
@@ -26,7 +25,32 @@ int main()
     //cout << s << endl;
     //cout<<"pos:"<<s.find("222")<<endl;
 
+
+
+
+    CFileIO CFile;
     FileIO File;
-    File.CopyFolder("d:\\test2", "d:\\test3");
+    DWORD start;
+    std::ios::sync_with_stdio(false);
+
+    start = GetTickCount();
+    CFile.CopyA("D:\\test\\ubuntu.iso", "E:\\test\\ubuntu2.iso");
+    cout << "C Style:" << GetTickCount() - start << endl;
+    
+
+    start = GetTickCount();
+    File.Copy("D:\\test\\ubuntu.iso", "E:\\test\\ubuntu.iso");
+    cout << "C++ Style:" << GetTickCount() - start << endl;
+
+    //start = GetTickCount();
+    //CFile.CopyA("D:\\test\\ubuntu.iso", "E:\\test\\ubuntu2.iso");
+    //cout << "C Style:" << GetTickCount() - start << endl;
+
+
 
 }
+
+
+
+
+

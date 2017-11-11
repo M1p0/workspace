@@ -68,18 +68,13 @@ void FileIO::Copy(string SourceFile, string NewFile)   //无法拷贝到不存在的目录
     }
     else
     {
-        DWORD R, W;    //R为读取时间 W为写入时间
         in.seekg(0, ios::end); //定位指针到最后
         long size = in.tellg();  //获取文件大小     大文件拷贝存在问题
         in.seekg(0, ios::beg);//重新定位指针至文件头
         buffer = new char[size];
-        R = GetTickCount();
         in.read(buffer, size);
-        cout << "read:" << GetTickCount() - R << endl;
-        W = GetTickCount();
         out.write(buffer, size);
         out.flush();
-        cout << "write:" << GetTickCount() - W << endl;
         delete[]buffer;
     }
     in.close();
