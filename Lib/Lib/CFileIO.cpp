@@ -13,8 +13,9 @@ void CFileIO::GetSize(char* szPath)
     }
     else
     {
-        fseek(p, 0, SEEK_END);
-        FileSize = ftell(p);
+        _fseeki64(p, 0, SEEK_END);
+        fgetpos(p, &FileSize);
+        //FileSize = ftell(p);
         rewind(p);
     }
 }
@@ -56,28 +57,11 @@ void CFileIO::Write(char* szPath, char* szData, long offset, long Size)
     fclose(p);
 }
 
+
+
 void CFileIO::Copy(char* SourceFile, char* NewFile)
 {
-    GetSize(SourceFile);
-    long offset = 0;
-    long total_size = 0;
-    while (true)
-    {
-        char* buff = Read(SourceFile, offset, buff_size);
-        Write(NewFile, buff, offset, buff_size);
-        offset = offset + buff_size;
-        total_size = total_size + buff_size;
-
-        if (total_size >= FileSize)
-            break;
-
-    }
-
-}
-
-void CFileIO::CopyA(char* SourceFile, char* NewFile)
-{
-    long Rest = 0;
+    fpos_t Rest = 0;
     char* buff = NULL;
     GetSize(SourceFile);
     Rest = FileSize;
