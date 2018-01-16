@@ -15,6 +15,7 @@ void CFileIO::GetSize(char* szPath)
     {
         _fseeki64(p, 0, SEEK_END);
         fgetpos(p, &FileSize);
+        //fseek(p, 0, SEEK_END);
         //FileSize = ftell(p);
         rewind(p);
     }
