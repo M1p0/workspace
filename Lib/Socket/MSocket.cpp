@@ -1,31 +1,15 @@
-#include <winsock2.h>  
-#include <iostream> 
-#include <windows.h>
+#include <iostream>
 #include "MSocket.h"
 using namespace std;
-using namespace MSocket;
 
 
-
-int Server::Init()
+int MSocket::Send(SOCKET Socket, string Msg)
 {
-    if (WSAStartup(MAKEWORD(2, 2), &wsd) != 0) //≥ı ºªØsocket
-    {
-        cout << "WSAStartup failed!" << endl;
-        return -1;
-    }
+#ifdef _WIN32
+    RetVal=send(Socket, Msg.c_str(), Msg.size(), 0);
+#elif defined __linux__
+    RetVal=send(Socket, Msg.c_str(), Msg.size(), MSG_NOSIGNAL);
+#endif
 
     return 0;
-}
-
-void Server::Set(int Port)
-{
-
-    this->Port = Port;
-}
-
-
-void Server::Show()
-{
-    cout << Port << endl;
 }

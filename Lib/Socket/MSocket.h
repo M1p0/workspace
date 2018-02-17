@@ -1,40 +1,30 @@
 #pragma once
-#include <winsock2.h>  
-#include <process.h>
+
+#include <thread>
 #include <string>
-#include <mutex>
+#include <string.h>
+
+
+#ifdef _WIN32
+
+#include <winsock2.h>
 #pragma comment(lib,"Ws2_32.lib")
 
-namespace MSocket
+#elif defined __linux__
+#include <netinet/in.h> //套接字地址结构
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+#define SOCKET int
+#endif 
+
+class MSocket
 {
+public:
+    int Send(SOCKET Socket,std::string Msg);
+    int Recv(SOCKET Socket, std::string Msg);
+private:
+    int RetVal;
+};
 
-    class Server
-    {
-    public:
-        Server() {};
-        ~Server() {};
-        int Init();
-        void Set(int Port);
-        void Show();
-    private:
-        SOCKADDR_IN addrSer;      //服务器地址 
-        WSADATA wsd;//WSADATA变量  
-        int Port = 0;
-    };
-
-    class Client 
-    {
-    public:
-        Client() {};
-        ~Client() {};
-        int Init();
-        void Set();
-    private:
-        WSADATA wsd;//WSADATA变量  
-    };
-
-
-
-
-
-}
