@@ -6,15 +6,33 @@ using namespace std;
 
 
 
+#pragma pack(1)
+struct SHeader
+{
+    size_t Length=1024;
+};
+struct SData
+{
+    char buf[1024];
+};
+#pragma pack()
+
 
 int main()
 {
     
-    CFileIO File;
-    File.Copy("D:\\test\\win.iso", "d:\\test2\\win.iso");
-    //File.Copy("D:\\test\\ubuntu.iso", "d:\\test2\\ubuntu.iso");
-    File.GetSize("D:\\test\\win.iso");
+    SHeader Header;
+    Header.Length = 1024;
 
+    char temp[1024];
+    cin >> temp;
+    cout << temp << endl;
+
+    SData Data;
+    memcpy(&Data.buf, &temp, 1024);
+    cout << Data.buf << endl;
+
+ 
 
 }
 

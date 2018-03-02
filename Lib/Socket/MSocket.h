@@ -3,7 +3,7 @@
 #include <thread>
 #include <string>
 #include <string.h>
-
+#define BUF_SIZE 512
 
 #ifdef _WIN32
 
@@ -19,6 +19,7 @@
 #define SOCKET int
 #endif 
 
+
 class MSocket
 {
 public:
@@ -27,4 +28,14 @@ public:
 private:
     int RetVal;
 };
+
+
+#pragma pack(1)
+struct Packet
+{
+    size_t Length;
+    char Data[BUF_SIZE];
+};
+#pragma pack()
+
 

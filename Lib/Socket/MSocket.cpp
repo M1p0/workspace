@@ -10,6 +10,5 @@ int MSocket::Send(SOCKET Socket, string Msg)
 #elif defined __linux__
     RetVal=send(Socket, Msg.c_str(), Msg.size(), MSG_NOSIGNAL);
 #endif
-
     return 0;
 }
