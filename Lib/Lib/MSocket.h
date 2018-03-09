@@ -35,13 +35,14 @@ public:
     MSocket();
     ~MSocket();
     int Init();
-    int Send(SOCKET Socket, char* Msg, int Length);
-    int Recv(SOCKET Socket, char* Msg);
-    int Connect(SOCKET s, const char *Name,int Port,int Family=AF_INET);
-    int Bind(SOCKET s, int Port, int Family= AF_INET);
+    int Send(SOCKET s, char* Msg, int Length);
+    int Recv(SOCKET s, char* Msg, int Length);
+    int Connect(SOCKET s, const char *Name, int Port, int Family = AF_INET);
+    int Bind(SOCKET s, int Port, int Family = AF_INET);
+    int Listen(SOCKET s, int Backlog);
+    SOCKET Accept(SOCKET s);
 
 private:
-    int RetVal;
     WSADATA wsd;
 };
 

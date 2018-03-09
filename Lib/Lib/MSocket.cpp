@@ -14,22 +14,45 @@ MSocket::~MSocket()
 #endif
 }
 
-int MSocket::Send(SOCKET Socket, char* Msg, int Length)
+int MSocket::Send(SOCKET s, char* Msg, int Length)
 {
     int current = 0;
+    int retVal = 0;
     while (current < Length)
     {
 #ifdef _WIN32
-        RetVal = send(Socket, Msg, Length - current, 0);
+        retVal = send(s, Msg, Length - current, 0);
 #else
-        RetVal = send(Socket, Msg, Length - current, MSG_NOSIGNAL);
+        retVal = send(s, Msg, Length - current, MSG_NOSIGNAL);
 #endif
-        if (RetVal <= 0)
+        if (retVal <= 0)
         {
             cout << "send failed" << endl;
             return -1;
         }
-        current = current + RetVal;
+        current = current + retVal;
+    }
+    return current;
+}
+
+
+int MSocket::Recv(SOCKET s, char * Msg, int Length)
+{
+    int current = 0;
+    int retVal = 0;
+    while (current < Length)
+    {
+#ifdef _WIN32
+        retVal = recv(s, Msg, Length, 0);
+#else
+        retVal = recv(Client, Passwd, Length, MSG_NOSIGNAL);
+#endif
+        if (retVal <= 0)
+        {
+            cout << "recv failed" << endl;
+            return -1;
+        }
+        current = current + retVal;
     }
     return current;
 }
@@ -48,6 +71,7 @@ int MSocket::Connect(SOCKET s, const char *Name, int Port, int Family)
     }
     else
     {
+        cout << "Connect failed" << endl;
         return -1;
     }
 
@@ -63,12 +87,37 @@ int MSocket::Bind(SOCKET s, int Port, int Family)
     retVal = ::bind(s, (sockaddr*)&addrServ, sizeof(addrServ));
     if (retVal != 0)
     {
+        cout << "Bind failed" << endl;
         return -1;
     }
     else
     {
         return 0;
     }
+}
+
+int MSocket::Listen(SOCKET s, int Backlog)
+{
+    int retVal = 0;
+    retVal = listen(s, Backlog);
+    if (retVal!=0)
+    {
+        cout << "Listen failed" << endl;
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+SOCKET MSocket::Accept(SOCKET s)
+{
+    SOCKET sClient;
+    sockaddr_in addrClient;
+    int addrClientlen = sizeof(addrClient);
+    sClient= accept(s, (sockaddr*)&addrClient, &addrClientlen);
+    return sClient;
 }
 
 int MSocket::Init()
@@ -82,7 +131,6 @@ int MSocket::Init()
     {
         return 0;
     }
-
 #else
     return 0;
 #endif
