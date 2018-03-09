@@ -144,6 +144,7 @@
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Hw_event.cpp" />
     <ClCompile Include="LinkList.cpp" />
+    <ClCompile Include="MSocket.cpp" />
     <ClCompile Include="timecost.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="FileIO_DLL.h" />
     <ClInclude Include="Hw_event.h" />
     <ClInclude Include="LinkList.h" />
+    <ClInclude Include="MSocket.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

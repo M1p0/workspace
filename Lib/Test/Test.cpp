@@ -2,39 +2,30 @@
 #include <string>
 #include "tools.h"
 #include "CFileIO.h"
+#include <MSocket.h>
+#include <cstdlib>
 using namespace std;
 
 
 
-#pragma pack(1)
-struct SHeader
-{
-    size_t Length=1024;
-};
-struct SData
-{
-    char buf[1024];
-};
-#pragma pack()
-
-
 int main()
 {
+
+    MSocket sock;
+    //sock.Init();
+    SOCKET sHost = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    sock.Connect(sHost, "192.168.1.2", 9000);
+
+    char*s = "test";
     
-    SHeader Header;
-    Header.Length = 1024;
 
-    char temp[1024];
-    cin >> temp;
-    cout << temp << endl;
-
-    SData Data;
-    memcpy(&Data.buf, &temp, 1024);
-    cout << Data.buf << endl;
-
- 
+    if (sock.Send(sHost, s, strlen(s)))
+    {
+        return 0;
+    }
 
 }
+
 
 
 

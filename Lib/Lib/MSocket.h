@@ -10,25 +10,15 @@
 #include <winsock2.h>
 #pragma comment(lib,"Ws2_32.lib")
 
-#elif defined __linux__
+#else
 #include <netinet/in.h> //套接字地址结构
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
 #define SOCKET int
+#define Sleep(x) sleep(x)
 #endif 
-
-
-class MSocket
-{
-public:
-    int Send(SOCKET Socket,std::string Msg);
-    int Recv(SOCKET Socket, std::string Msg);
-private:
-    int RetVal;
-};
-
 
 #pragma pack(1)
 struct Packet
@@ -37,5 +27,22 @@ struct Packet
     char Data[BUF_SIZE];
 };
 #pragma pack()
+
+
+class MSocket
+{
+public:
+    MSocket();
+    ~MSocket();
+    int Init();
+    int Send(SOCKET Socket, char* Msg, int Length);
+    int Recv(SOCKET Socket, char* Msg);
+    int Connect(SOCKET s, const char *Name,int Port,int Family=AF_INET);
+    int Bind(SOCKET s, int Port, int Family= AF_INET);
+
+private:
+    int RetVal;
+    WSADATA wsd;
+};
 
 

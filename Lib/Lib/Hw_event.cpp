@@ -10,7 +10,7 @@ void SetMouse(POINT pos)
     SetCursorPos(pos.x, pos.y);
 }
 
-void SetMouse(int x, int y)
+void SetMouse(long x, long y)
 {
     SetCursorPos(x, y);
 }
@@ -56,7 +56,7 @@ void SetDelay(int time)
 void Mouse_MoveTo(POINT start, POINT end)
 {
     POINT point1, point2, temp;
-    double x, y;
+    long x, y;
     point1 = start;
     temp = point1;
     point2 = end;
