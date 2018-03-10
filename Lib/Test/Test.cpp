@@ -8,37 +8,31 @@ using namespace std;
 
 int main()
 {
-
-
     MSocket sock;
+    SOCKET s;
     SOCKET sClient;
-    SOCKET sHost = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    sock.Bind(sHost, 9000);
-    sock.Listen(sHost, 5);
-    sClient = sock.Accept(sHost);
+    s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    sock.Bind(s, 9000);
+    sock.Listen(s, 10);
+    sClient = sock.Accept(s);
+
+    char msg[1024];
+    memset(msg, 0, 1024);
     while (true)
     {
-        char buff[4];
-        memset(buff,0, 4);
-        sock.Recv(sClient, buff, 4);
-        cout << buff << endl;
+        sock.Recv(sClient, msg, 4);
+        cout << msg << endl;
     }
-
-
     //MSocket sock;
     //SOCKET s;
     //s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    //sock.Connect(s, "192.168.1.2", 9000);
+    //sock.Connect(s, "172.105.202.158", 9000);
     //while (true)
     //{
     //    sock.Send(s, "123", 3);
     //    Sleep(100);
     //}
-
-
-
 }
-
 
 
 

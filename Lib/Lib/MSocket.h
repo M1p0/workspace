@@ -43,7 +43,9 @@ public:
     SOCKET Accept(SOCKET s);
 
 private:
+#ifdef _WIN32
     WSADATA wsd;
+#endif
 };
 
 

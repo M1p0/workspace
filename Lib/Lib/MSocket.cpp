@@ -45,7 +45,7 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
 #ifdef _WIN32
         retVal = recv(s, Msg, Length, 0);
 #else
-        retVal = recv(Client, Passwd, Length, MSG_NOSIGNAL);
+        retVal = recv(s, Msg, Length, MSG_NOSIGNAL);
 #endif
         if (retVal <= 0)
         {
@@ -60,7 +60,7 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
 int MSocket::Connect(SOCKET s, const char *Name, int Port, int Family)
 {
     int retVal = 0;
-    SOCKADDR_IN servAddr;
+    sockaddr_in servAddr;
     servAddr.sin_family = Family;
     servAddr.sin_addr.s_addr = inet_addr(Name);
     servAddr.sin_port = htons((short)Port);
@@ -80,7 +80,7 @@ int MSocket::Connect(SOCKET s, const char *Name, int Port, int Family)
 int MSocket::Bind(SOCKET s, int Port, int Family)
 {
     int retVal = 0;
-    SOCKADDR_IN addrServ;
+    sockaddr_in addrServ;
     addrServ.sin_family = Family;
     addrServ.sin_port = htons(Port);
     addrServ.sin_addr.s_addr = INADDR_ANY;
@@ -100,7 +100,7 @@ int MSocket::Listen(SOCKET s, int Backlog)
 {
     int retVal = 0;
     retVal = listen(s, Backlog);
-    if (retVal!=0)
+    if (retVal != 0)
     {
         cout << "Listen failed" << endl;
         return -1;
@@ -114,9 +114,14 @@ int MSocket::Listen(SOCKET s, int Backlog)
 SOCKET MSocket::Accept(SOCKET s)
 {
     SOCKET sClient;
+#ifdef _WIN32
+    int addrClientlen;
+#else
+    socklen_t addrClientlen;
+#endif
     sockaddr_in addrClient;
-    int addrClientlen = sizeof(addrClient);
-    sClient= accept(s, (sockaddr*)&addrClient, &addrClientlen);
+    addrClientlen = sizeof(addrClient);
+    sClient = accept(s, (sockaddr*)&addrClient, &addrClientlen);
     return sClient;
 }
 
