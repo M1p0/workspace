@@ -27,7 +27,6 @@ int MSocket::Send(SOCKET s, char* Msg, int Length)
 #endif
         if (retVal <= 0)
         {
-            cout << "send failed" << endl;
             return -1;
         }
         current = current + retVal;
@@ -49,7 +48,6 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
 #endif
         if (retVal <= 0)
         {
-            cout << "recv failed" << endl;
             return -1;
         }
         current = current + retVal;
@@ -87,7 +85,6 @@ int MSocket::Bind(SOCKET s, int Port, int Family)
     retVal = ::bind(s, (sockaddr*)&addrServ, sizeof(addrServ));
     if (retVal != 0)
     {
-        cout << "Bind failed" << endl;
         return -1;
     }
     else
@@ -102,7 +99,6 @@ int MSocket::Listen(SOCKET s, int Backlog)
     retVal = listen(s, Backlog);
     if (retVal != 0)
     {
-        cout << "Listen failed" << endl;
         return -1;
     }
     else

@@ -39,6 +39,9 @@
     <ClCompile Include="MSocket.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MyEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkList.h">
@@ -60,6 +63,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="MSocket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
