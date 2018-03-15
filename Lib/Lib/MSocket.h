@@ -23,7 +23,7 @@
 #pragma pack(1)
 struct Packet
 {
-    size_t Length;
+    int Length;
     char Data[BUF_SIZE];
 };
 #pragma pack()

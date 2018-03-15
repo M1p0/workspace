@@ -2,6 +2,8 @@
 #include <string>
 #include <MSocket.h>
 #include <cstdlib>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 
@@ -14,7 +16,7 @@ int main()
     s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     sock.Bind(s, 9000);
     sock.Listen(s, 10);
-    sClient = sock.Accept(s);
+    sClient=sock.Accept(s);
 
     char msg[1024];
     memset(msg, 0, 1024);
@@ -32,6 +34,7 @@ int main()
     //    sock.Send(s, "123", 3);
     //    Sleep(100);
     //}
+    std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 
