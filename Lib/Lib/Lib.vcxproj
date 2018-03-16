@@ -154,6 +154,7 @@
     <ClCompile Include="Hw_event.cpp" />
     <ClCompile Include="LinkList.cpp" />
     <ClCompile Include="MSocket.cpp" />
+    <ClCompile Include="MString.cpp" />
     <ClCompile Include="MyEvent.cpp" />
     <ClCompile Include="timecost.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Hw_event.h" />
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="MSocket.h" />
+    <ClInclude Include="MString.h" />
     <ClInclude Include="MyEvent.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>

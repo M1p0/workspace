@@ -136,3 +136,19 @@ int MSocket::Init()
     return 0;
 #endif
 }
+
+int MSocket::Getpeername(SOCKET Client, Cli_Info & CInfo)
+{
+    SOCKADDR_IN Sa_In;
+    int len = sizeof(Sa_In);
+    if (getpeername(Client, (struct sockaddr *)&Sa_In, &len)==0)
+    {
+        CInfo.ip = inet_ntoa(Sa_In.sin_addr);
+        CInfo.port = ntohs(Sa_In.sin_port);  //IPV6需要使用inet_pton()
+        return 0;
+    }
+    else
+    {
+        return -1;
+    }
+}

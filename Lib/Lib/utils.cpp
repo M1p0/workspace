@@ -1,24 +1,5 @@
 #include "utils.h"
-
-void transfer(string &str, int mode)
-{
-    if (mode == 1)
-    {
-        for (auto &c : str)
-        {
-            c = toupper(c);
-        }
-    }
-    else if (mode == 2)
-    {
-        for (auto &c : str)
-        {
-            c = tolower(c);
-        }
-    }
-}
-
-
+using namespace std;
 void deleteAllMark(string &s, const string &mark)
 {
     size_t nSize = mark.size();
