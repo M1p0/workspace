@@ -139,8 +139,14 @@ int MSocket::Init()
 
 int MSocket::Getpeername(SOCKET Client, Cli_Info & CInfo)
 {
-    SOCKADDR_IN Sa_In;
+    sockaddr_in Sa_In;
+#ifdef _WIN32
     int len = sizeof(Sa_In);
+#else
+    socklen_t len = sizeof(Sa_In);
+#endif // _WIN32
+
+
     if (getpeername(Client, (struct sockaddr *)&Sa_In, &len)==0)
     {
         CInfo.ip = inet_ntoa(Sa_In.sin_addr);
