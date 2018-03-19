@@ -69,7 +69,6 @@ int MSocket::Connect(SOCKET s, const char *Name, int Port, int Family)
     }
     else
     {
-        cout << "Connect failed" << endl;
         return -1;
     }
 
