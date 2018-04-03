@@ -17,3 +17,19 @@ void transfer(string &str, int mode)
         }
     }
 }
+
+
+void deleteAllMark(string &s, const string &mark)
+{
+    size_t nSize = mark.size();
+    while (1)
+    {
+        size_t pos = 0;
+        pos = s.find(mark, pos);
+        if (pos == string::npos)
+        {
+            return;
+        }
+        s.erase(pos, nSize);
+    }
+}

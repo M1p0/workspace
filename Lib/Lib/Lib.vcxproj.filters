@@ -24,9 +24,6 @@
     <ClCompile Include="FileIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="CFileIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -45,15 +42,15 @@
     <ClCompile Include="MString.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="public.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkList.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="FileIO.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CFileIO.h">
@@ -72,6 +69,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="MString.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="public.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
