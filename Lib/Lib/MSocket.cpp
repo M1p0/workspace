@@ -106,6 +106,16 @@ int MSocket::Listen(SOCKET s, int Backlog)
     }
 }
 
+int MSocket::Close(SOCKET s)
+{
+#ifdef _WIN32
+    closesocket(s);
+#else
+    close(s);
+#endif
+    return 0;
+}
+
 SOCKET MSocket::Accept(SOCKET s)
 {
     SOCKET sClient;

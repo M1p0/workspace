@@ -2,9 +2,7 @@
 //×¢Òâwinsock2.hºÍwindows.hµÄ³åÍ» 
 //#undef  WIN32_LEAN_AND_MEAN
 //#define WIN32_LEAN_AND_MEAN
-#include <thread>
 #include <string>
-#include <string.h>
 #define BUF_SIZE 1024
 
 #ifdef _WIN32
@@ -49,6 +47,7 @@ public:
     int Connect(SOCKET s, const char *Name, int Port, int Family = AF_INET);
     int Bind(SOCKET s, int Port, int Family = AF_INET);
     int Listen(SOCKET s, int Backlog);
+    int Close(SOCKET s);
     SOCKET Accept(SOCKET s);
     int Getpeername(SOCKET Client, Cli_Info &CInfo);
 private:
