@@ -1,11 +1,11 @@
 #include "MyEvent.h"
+#include "Public.h"
 #include <mutex>
 
 #ifdef _WIN32
 #include <windows.h>
 #else
 #include <unistd.h>
-#define Sleep(x) sleep(x)
 #endif
 
 int Mtx_Lock(std::mutex &mtx)
@@ -34,7 +34,7 @@ int Mtx_Wait(std::mutex &mtx)
 {
     while (mtx.try_lock() != 1)
     {
-        Sleep(1);
+        MSleep(1, "ms");
     }
     mtx.unlock();
     return 0;
