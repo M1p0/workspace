@@ -42,7 +42,7 @@
     <ClCompile Include="MString.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="public.cpp">
+    <ClCompile Include="Public.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,7 +71,7 @@
     <ClInclude Include="MString.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="public.h">
+    <ClInclude Include="Public.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

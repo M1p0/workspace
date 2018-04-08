@@ -156,8 +156,8 @@
     <ClCompile Include="MSocket.cpp" />
     <ClCompile Include="MString.cpp" />
     <ClCompile Include="MyEvent.cpp" />
+    <ClCompile Include="Public.cpp" />
     <ClCompile Include="timecost.cpp" />
-    <ClCompile Include="public.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CFileIO.h" />
@@ -168,7 +168,7 @@
     <ClInclude Include="MSocket.h" />
     <ClInclude Include="MString.h" />
     <ClInclude Include="MyEvent.h" />
-    <ClInclude Include="public.h" />
+    <ClInclude Include="Public.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

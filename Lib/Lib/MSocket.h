@@ -19,7 +19,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 #define SOCKET int
-#define Sleep(x) sleep(x)
 #endif 
 
 #pragma pack(1)
