@@ -12,9 +12,18 @@ using namespace std;
 int main()
 {
 
-    MSleep(10000,"ms");
-    cout << "finish" << endl;
+    int x = 1;
+    char *p = (char *)&x;
 
+    if (*p)
+    {
+        printf("little\n");
+    }
+    else
+    {
+        printf("large\n");
+    }
+    return 0;
 }
 
 

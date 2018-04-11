@@ -14,7 +14,7 @@ MSocket::~MSocket()
 #endif
 }
 
-int MSocket::Send(SOCKET s, char* Msg, int Length)
+int MSocket::Send(SOCKET s,const char* Msg, int Length)
 {
     int current = 0;
     int retVal = 0;
