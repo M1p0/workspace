@@ -42,13 +42,20 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
     while (current < Length)
     {
 #ifdef _WIN32
-        retVal = recv(s, Msg, Length, 0);
+        retVal = recv(s, Msg, Length- current, 0);
 #else
-        retVal = recv(s, Msg, Length, MSG_NOSIGNAL);
+        retVal = recv(s, Msg, Length- current, MSG_NOSIGNAL);
 #endif
         if (retVal <= 0)
         {
-            return -1;
+            if (current!=0)
+            {
+                return current;
+            }
+            else
+            {
+                return -1;
+            }
         }
         current = current + retVal;
     }
