@@ -21,9 +21,9 @@ int MSocket::Send(SOCKET s,const char* Msg, int Length)
     while (current < Length)
     {
 #ifdef _WIN32
-        retVal = send(s, Msg, Length - current, 0);
+        retVal = send(s, Msg+current, Length - current, 0);
 #else
-        retVal = send(s, Msg, Length - current, MSG_NOSIGNAL);
+        retVal = send(s, Msg+current, Length - current, MSG_NOSIGNAL);
 #endif
         if (retVal <= 0)
         {
@@ -42,9 +42,9 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
     while (current < Length)
     {
 #ifdef _WIN32
-        retVal = recv(s, Msg, Length- current, 0);
+        retVal = recv(s, Msg+current, Length- current, 0);
 #else
-        retVal = recv(s, Msg, Length- current, MSG_NOSIGNAL);
+        retVal = recv(s, Msg+current, Length- current, MSG_NOSIGNAL);
 #endif
         if (retVal <= 0)
         {

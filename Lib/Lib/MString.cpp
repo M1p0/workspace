@@ -33,3 +33,16 @@ void deleteAllMark(string &s, const string &mark)
         s.erase(pos, nSize);
     }
 }
+
+int Mstrncpy(char *Dst, const char*Src, int Length)
+{
+    if (Dst==nullptr||Src==nullptr)
+    {
+        return -1;
+    }
+    else
+    {
+
+    }
+
+}

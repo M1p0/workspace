@@ -7,7 +7,7 @@
 void CFileIO::GetSize(char* szPath)
 {
     FILE *p = fopen(szPath, "rb+");;
-    if (p == NULL)
+    if (p == nullptr)
     {
         cout << "Read Failed!" << endl;
     }
@@ -25,9 +25,9 @@ void CFileIO::GetSize(char* szPath)
 
 char* CFileIO::Read(char* szPath, long offset, long size)
 {
-    char* buff = NULL;
+    char* buff = nullptr;
     FILE *p = fopen(szPath, "rb+");
-    if (p == NULL)
+    if (p == nullptr)
     {
         cout << "Read Failed!" << endl;
     }
@@ -43,10 +43,10 @@ char* CFileIO::Read(char* szPath, long offset, long size)
     return buff;
 }
 
-void CFileIO::Write(char* szPath, char* szData, long offset, long Size)
+void CFileIO::Write(const char* szPath,const char* szData, long offset, long Size)
 {
     FILE *p = fopen(szPath, "ab+");
-    if (p == NULL)
+    if (p == nullptr)
     {
         cout << "Failed to open File!" << endl;
     }
@@ -63,12 +63,12 @@ void CFileIO::Write(char* szPath, char* szData, long offset, long Size)
 void CFileIO::Copy(char* SourceFile, char* NewFile)
 {
     fpos_t Rest = 0;
-    char* buff = NULL;
+    char* buff = nullptr;
     GetSize(SourceFile);
     Rest = FileSize;
     FILE *p = fopen(SourceFile, "rb+");
     FILE *fs = fopen(NewFile, "wb+");
-    if (p == NULL || fs == NULL)
+    if (p == nullptr || fs == nullptr)
     {
         cout << "Read Failed!" << endl;
     }
@@ -84,7 +84,7 @@ void CFileIO::Copy(char* SourceFile, char* NewFile)
                 fread(buff, Rest, 1, p);
                 fwrite(buff, Rest, 1, fs);
                 delete buff;
-                buff = NULL;
+                buff = nullptr;
                 Rest = 0;
             }
             else
@@ -96,7 +96,7 @@ void CFileIO::Copy(char* SourceFile, char* NewFile)
                 //fputs(buff, fs);
                 fwrite(buff, buff_size, 1, fs);
                 delete buff;
-                buff = NULL;
+                buff = nullptr;
                 Rest = Rest - buff_size;
             }
         }

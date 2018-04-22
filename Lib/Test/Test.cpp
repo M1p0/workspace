@@ -11,19 +11,15 @@ using namespace std;
 
 int main()
 {
-
-    int x = 1;
-    char *p = (char *)&x;
-
-    if (*p)
-    {
-        printf("little\n");
-    }
-    else
-    {
-        printf("large\n");
-    }
-    return 0;
+    int a = 10;
+    int b;
+    char Dst[4]="123";
+    char Src[4] = "456";
+    strncpy(Dst+2, Src,1);
+    cout << Dst << endl;
+    
+   
+   
 }
 
 
