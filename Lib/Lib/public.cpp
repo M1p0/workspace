@@ -1,7 +1,6 @@
 #include "Public.h"
 using namespace std;
 
-
 int Program_Mutex()
 {
     HANDLE hMutex = NULL;
