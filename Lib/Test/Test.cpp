@@ -16,6 +16,7 @@ int main()
     memset(a, 0, 1024);
     CFileIO File;
     File.Read("d:\\test.html",a ,0, 1024);
+    File.Copy("d:\\¸Ö±Ê.png", "D:\\¸Ö±Ê2.png");
     cout << a << endl;
 }
 

@@ -13,7 +13,6 @@ CFileIO::~CFileIO()
 
 int CFileIO::Init()
 {
-    FileSize = 0;
     if (Shared_buffer == nullptr)
     {
         Shared_buffer = new char[Shared_buff_size];
@@ -36,7 +35,7 @@ int CFileIO::Init()
     return 0;
 }
 
-void CFileIO::GetSize(const char* szPath)
+void CFileIO::GetSize(const char* szPath, int64_t* Size)
 {
     FILE *p = fopen(szPath, "rb+");;
     if (p == nullptr)
@@ -46,16 +45,17 @@ void CFileIO::GetSize(const char* szPath)
     else
     {
         _fseeki64(p, 0, SEEK_END);
-        fgetpos(p, &FileSize);
+        fgetpos(p, Size);
         rewind(p);
     }
 }
 
 
 
-void CFileIO::Read(const char* szPath,char* buffer ,long offset, int64_t buffer_size)
+void CFileIO::Read(const char* szPath, char* buffer, long offset, int64_t buffer_size)
 {
-    GetSize(szPath);
+    int64_t FileSize = 0;
+    GetSize(szPath, &FileSize);
     FILE *p = fopen(szPath, "rb");
     if (p == nullptr)
     {
@@ -90,9 +90,10 @@ void CFileIO::Write(const char* szPath, const char* szData, long offset, int64_t
 
 void CFileIO::Copy(const char* SourceFile, const char* NewFile)
 {
+    int64_t FileSize = 0;
     int64_t Rest = 0;
     char* buff = nullptr;
-    GetSize(SourceFile);
+    GetSize(SourceFile, &FileSize);
     Rest = FileSize;
     FILE *p = fopen(SourceFile, "rb");
     FILE *fs = fopen(NewFile, "wb+");
