@@ -5,21 +5,18 @@
 #include <thread>
 #include <chrono>
 #include "Public.h"
+#include "CFileIO.h"
 using namespace std;
 
 
 
 int main()
 {
-    int a = 10;
-    int b;
-    char Dst[4]="123";
-    char Src[4] = "456";
-    strncpy(Dst+2, Src,1);
-    cout << Dst << endl;
-    
-   
-   
+    char a[1024];
+    memset(a, 0, 1024);
+    CFileIO File;
+    File.Read("d:\\test.html",a ,0, 1024);
+    cout << a << endl;
 }
 
 

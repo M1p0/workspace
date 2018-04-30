@@ -1,17 +1,29 @@
 #pragma once
 #include <iostream>
 #include <cstdio>
-#include <string>
+#include <string.h>
+#include <stdint.h>
 using namespace std;
+
+#ifdef _WIN32
+#include "windows.h"
+#endif // _WIN32
+
+
 
 class CFileIO
 {
 public:
+    CFileIO();
+    ~CFileIO();
+    int Init();
+    void GetSize(const char* szPath);
+    void Read(const char* szPath,char* buffer,long offset, int64_t buffer_size);
+    void Write(const char* szPath, const char* szData, long offset, int64_t buffer_size);
+    void Copy(const char* SourceFile,const char* NewFile);
+    void SetBuffSize(int64_t Size);
+private:
     fpos_t FileSize;
-    int buff_size=1024*1024;  //缓存大小1MB
-    void GetSize(char* szPath);
-    char* Read(char* szPath, long offset, long size);
-    void  Write(const char* szPath,const char* szData, long offset, long Size);
-    void Copy(char* SourceFile, char* NewFile);
+    int64_t Shared_buff_size = 1024 * 1024;  //缓存大小1MB
+    char* Shared_buffer=nullptr;
 };
-

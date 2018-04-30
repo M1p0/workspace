@@ -42,7 +42,7 @@ int Mstrncpy(char *Dst, const char*Src, int Length)
     }
     else
     {
-
+        return 0;
     }
 
 }

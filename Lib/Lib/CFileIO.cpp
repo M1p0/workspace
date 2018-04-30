@@ -1,10 +1,42 @@
 #include "CFileIO.h"
-#include "windows.h"
 
+CFileIO::CFileIO()
+{
+    Init();
+}
 
+CFileIO::~CFileIO()
+{
+    delete[] Shared_buffer;
+    Shared_buffer = nullptr;
+}
 
+int CFileIO::Init()
+{
+    FileSize = 0;
+    if (Shared_buffer == nullptr)
+    {
+        Shared_buffer = new char[Shared_buff_size];
+        memset(Shared_buffer, 0, Shared_buff_size);
+    }
+    else
+    {
+        if (Shared_buff_size == 1024 * 1024)
+        {
+            memset(Shared_buffer, 0, Shared_buff_size);
+        }
+        else
+        {
+            delete[] Shared_buffer;
+            Shared_buffer = nullptr;
+            Shared_buffer = new char[Shared_buff_size];
+            memset(Shared_buffer, 0, Shared_buff_size);
+        }
+    }
+    return 0;
+}
 
-void CFileIO::GetSize(char* szPath)
+void CFileIO::GetSize(const char* szPath)
 {
     FILE *p = fopen(szPath, "rb+");;
     if (p == nullptr)
@@ -15,35 +47,31 @@ void CFileIO::GetSize(char* szPath)
     {
         _fseeki64(p, 0, SEEK_END);
         fgetpos(p, &FileSize);
-        //fseek(p, 0, SEEK_END);
-        //FileSize = ftell(p);
         rewind(p);
     }
 }
 
 
 
-char* CFileIO::Read(char* szPath, long offset, long size)
+void CFileIO::Read(const char* szPath,char* buffer ,long offset, int64_t buffer_size)
 {
-    char* buff = nullptr;
-    FILE *p = fopen(szPath, "rb+");
+    GetSize(szPath);
+    FILE *p = fopen(szPath, "rb");
     if (p == nullptr)
     {
         cout << "Read Failed!" << endl;
     }
     else
     {
-        fseek(p, offset, SEEK_SET);
-        buff = new char[size];
-        memset(buff, 0, size);
-        fread(buff, 1, size, p);
+        _fseeki64(p, offset, SEEK_END);
+        fread(Shared_buffer, 1, buffer_size, p);
     }
-
+    memcpy(buffer, Shared_buffer, buffer_size);
     fclose(p);
-    return buff;
+    Init();
 }
 
-void CFileIO::Write(const char* szPath,const char* szData, long offset, long Size)
+void CFileIO::Write(const char* szPath, const char* szData, long offset, int64_t buffer_size)
 {
     FILE *p = fopen(szPath, "ab+");
     if (p == nullptr)
@@ -52,21 +80,21 @@ void CFileIO::Write(const char* szPath,const char* szData, long offset, long Siz
     }
     else
     {
-        fseek(p, offset, SEEK_SET);
-        fwrite(szData, 1, Size, p);
+        _fseeki64(p, offset, SEEK_SET);
+        fwrite(szData, 1, buffer_size, p);
     }
     fclose(p);
 }
 
 
 
-void CFileIO::Copy(char* SourceFile, char* NewFile)
+void CFileIO::Copy(const char* SourceFile, const char* NewFile)
 {
-    fpos_t Rest = 0;
+    int64_t Rest = 0;
     char* buff = nullptr;
     GetSize(SourceFile);
     Rest = FileSize;
-    FILE *p = fopen(SourceFile, "rb+");
+    FILE *p = fopen(SourceFile, "rb");
     FILE *fs = fopen(NewFile, "wb+");
     if (p == nullptr || fs == nullptr)
     {
@@ -74,10 +102,9 @@ void CFileIO::Copy(char* SourceFile, char* NewFile)
     }
     else
     {
-
-        while (Rest>0)
+        while (Rest > 0)
         {
-            if (Rest<buff_size)
+            if (Rest < Shared_buff_size)
             {
                 buff = new char[Rest];
                 memset(buff, 0, Rest);
@@ -89,19 +116,25 @@ void CFileIO::Copy(char* SourceFile, char* NewFile)
             }
             else
             {
-                buff = new char[buff_size];
-                memset(buff, 0, buff_size);
+                buff = new char[Shared_buff_size];
+                memset(buff, 0, Shared_buff_size);
                 //fgets(buff, buff_size, p);
-                fread(buff, buff_size, 1, p);
+                fread(buff, Shared_buff_size, 1, p);
                 //fputs(buff, fs);
-                fwrite(buff, buff_size, 1, fs);
+                fwrite(buff, Shared_buff_size, 1, fs);
                 delete buff;
                 buff = nullptr;
-                Rest = Rest - buff_size;
+                Rest = Rest - Shared_buff_size;
             }
         }
     }
     fclose(p);
     fclose(fs);
 
+}
+
+void CFileIO::SetBuffSize(int64_t Size)
+{
+    Shared_buff_size = Size;
+    Init();
 }

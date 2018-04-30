@@ -15,9 +15,9 @@ void FileIO::Write(string location, string data)
     WriteFile.close();
 }
 
-void FileIO::Read(string location, int mode)
+void FileIO::Read(const char* location, char* buff, int mode)
 {
-    char *buffer;
+    char* buffer;
     ifstream ReadFile(location, ios::binary);
     if (!ReadFile.is_open())
     {
@@ -32,7 +32,7 @@ void FileIO::Read(string location, int mode)
         ReadFile.seekg(0, ios::beg);//重新定位指针至文件头
         buffer = new char[size];
         ReadFile.read(buffer, size);
-        cout << buffer << endl;
+        memcpy(buff, buffer, size);
         delete[]buffer;
     }
     if (mode == 0)
@@ -85,7 +85,7 @@ void FileIO::Copy(string SourceFile, string NewFile)   //无法拷贝到不存在的目录
 
 
 
-void FileIO::ListDir(LPCTSTR lpFileName)
+void FileIO::ListDir(const char* lpFileName)
 {
     WIN32_FIND_DATA FileData;
     HANDLE hSearch;
@@ -93,7 +93,7 @@ void FileIO::ListDir(LPCTSTR lpFileName)
     hSearch = FindFirstFile(lpFileName, &FileData);
     while (FindNextFile(hSearch, &FileData))
     {
-        if (FileData.dwFileAttributes & 16)  
+        if (FileData.dwFileAttributes & 16)
             cout << "文件夹:" << FileData.cFileName << endl;
         else
             cout << "文件:" << FileData.cFileName << endl;
