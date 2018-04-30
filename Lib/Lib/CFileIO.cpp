@@ -63,9 +63,10 @@ void CFileIO::Read(const char* szPath, char* buffer, long offset, int64_t buffer
     }
     else
     {
-        _fseeki64(p, offset, SEEK_END);
+        _fseeki64(p, offset, SEEK_SET);
         fread(Shared_buffer, 1, buffer_size, p);
     }
+    cout << Shared_buffer << endl;
     memcpy(buffer, Shared_buffer, buffer_size);
     fclose(p);
     Init();
