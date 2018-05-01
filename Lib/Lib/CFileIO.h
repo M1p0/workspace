@@ -18,11 +18,11 @@ public:
     ~CFileIO();
     int Init();
     void GetSize(const char* szPath, int64_t* Size);
-    void Read(const char* szPath, char* buffer, long offset, int64_t buffer_size);
-    void Write(const char* szPath, const char* szData, long offset, int64_t buffer_size);
+    void Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer_Size);
+    void Write(const char* szPath, const char* szData, long Offset, int64_t Buffer_Size);
     void Copy(const char* SourceFile, const char* NewFile);
     void SetBuffSize(int64_t Size);
 private:
-    int64_t Shared_buff_size = 1024 * 1024;  //缓存大小1MB
-    char* Shared_buffer = nullptr;
+    int64_t Shared_Buff_Size = 1024 * 1024;  //缓存大小1MB
+    char* Shared_Buffer = nullptr;
 };

@@ -12,10 +12,11 @@ using namespace std;
 
 int main()
 {
-    char a[1024];
-    memset(a, 0, 1024);
+    char a[4096];
+    memset(a, 0, 4096);
     CFileIO File;
-    File.Read("d:\\test.html",a ,0, 1024);
+    File.SetBuffSize(1);
+    File.Read("d:\\test.html",a ,0, 4096);
     //File.Copy("d:\\¸Ö±Ê.png", "D:\\¸Ö±Ê2.png");
     cout << a << endl;
 }
