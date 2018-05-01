@@ -47,6 +47,7 @@ void CFileIO::GetSize(const char* szPath, int64_t* Size)
         _fseeki64(p, 0, SEEK_END);
         fgetpos(p, Size);
         rewind(p);
+        cout << "FileSize:" << *Size << endl;
     }
 }
 
@@ -56,8 +57,17 @@ void CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer
 {
     int64_t FileSize = 0;
     int64_t Current = Offset;
+    int64_t Rest = 0;
+    memset(Buffer, 0, Buffer_Size);
     GetSize(szPath, &FileSize);
-    int64_t Rest = FileSize;
+    if (Buffer_Size <= FileSize)
+    {
+        Rest = Buffer_Size;
+    }
+    else
+    {
+        Rest = FileSize;
+    }
     FILE *p = fopen(szPath, "rb");
     if (p == nullptr)
     {
@@ -66,11 +76,12 @@ void CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer
     else
     {
         _fseeki64(p, Offset, SEEK_SET);
-        if (Buffer_Size < Shared_Buff_Size)
+        if (Rest < Shared_Buff_Size)
         {
-            fread(Shared_Buffer, 1, Buffer_Size, p);
-            memcpy(Buffer, Shared_Buffer, Buffer_Size);
-            Current = Current + Buffer_Size;
+            fread(Shared_Buffer, 1, Rest, p);
+            memcpy(Buffer, Shared_Buffer, Rest);
+            Current = Current + Rest;
+            Rest = 0;
         }
         else
         {
