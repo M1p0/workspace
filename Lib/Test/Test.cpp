@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <MSocket.h>
 #include <cstdlib>
 #include <thread>
 #include <chrono>
@@ -8,16 +7,15 @@
 #include "CFileIO.h"
 using namespace std;
 
-
+#define BUFF_SZIE 1024*1024
 
 int main()
 {
-    char buffer[1024];
+    char a[32 * 1024] = {0};
+    char* buffer=new char[BUFF_SZIE];
     CFileIO File;
-    File.SetBuffSize(1);
-    File.Read("d:\\test.html",buffer ,0, 1024);
-    //File.Copy("d:\\¸Ö±Ê.png", "D:\\¸Ö±Ê2.png");
-    cout << buffer << endl;
+    File.Read("d:\\test3.png",buffer ,0, BUFF_SZIE);
+   // File.Write("d:\\test2.png", buffer, 0, BUFF_SZIE);
 }
 
 

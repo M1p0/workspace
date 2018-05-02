@@ -40,15 +40,24 @@ void CFileIO::GetSize(const char* szPath, int64_t* Size)
     FILE *p = fopen(szPath, "rb+");;
     if (p == nullptr)
     {
-        cout << "Read Failed!" << endl;
+        return;
     }
     else
     {
+#ifdef _WIN32
         _fseeki64(p, 0, SEEK_END);
         fgetpos(p, Size);
+#else
+        fseeko64(p, 0, SEEK_END);
+        fpos_t temp;
+        fgetpos(p, &temp);
+        *Size = temp.__pos;
+#endif // _WIN32
         rewind(p);
         cout << "FileSize:" << *Size << endl;
     }
+    fclose(p);
+
 }
 
 
@@ -72,10 +81,15 @@ void CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer
     if (p == nullptr)
     {
         cout << "Read Failed!" << endl;
+        return;
     }
     else
     {
+#ifdef _WIN32
         _fseeki64(p, Offset, SEEK_SET);
+#else
+        fseeko64(p, Offset, SEEK_SET);
+#endif // _WIN32
         if (Rest < Shared_Buff_Size)
         {
             fread(Shared_Buffer, 1, Rest, p);
@@ -115,10 +129,15 @@ void CFileIO::Write(const char* szPath, const char* szData, long Offset, int64_t
     if (p == nullptr)
     {
         cout << "Failed to open File!" << endl;
+        return;
     }
     else
     {
+#ifdef _WIN32
         _fseeki64(p, Offset, SEEK_SET);
+#else
+        fseeko64(p, Offset, SEEK_SET);
+#endif // _WIN32
         fwrite(szData, 1, Buffer_Size, p);
     }
     fclose(p);
@@ -138,6 +157,7 @@ void CFileIO::Copy(const char* SourceFile, const char* NewFile)
     if (p == nullptr || fs == nullptr)
     {
         cout << "Read Failed!" << endl;
+        return;
     }
     else
     {
