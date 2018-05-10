@@ -11,7 +11,7 @@ copy ..\x64\debug\*.pdb D:\GitHub\Proxy\Lib\
 copy .\*.h D:\GitHub\Proxy\Lib\ 
 
 
-copy ..\x64\debug\*.dll D:\GitHub\Football\Lib\
-copy ..\x64\debug\*.lib D:\GitHub\Football\Lib\
-copy ..\x64\debug\*.pdb D:\GitHub\Football\Lib\
-copy .\*.h D:\GitHub\Football\Lib\include\
+copy ..\x64\debug\*.dll D:\GitHub\HttpServer\Lib\
+copy ..\x64\debug\*.lib D:\GitHub\HttpServer\Lib\
+copy ..\x64\debug\*.pdb D:\GitHub\HttpServer\Lib\
+copy .\*.h D:\GitHub\HttpServer\Lib\include\

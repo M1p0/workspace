@@ -45,6 +45,9 @@
     <ClCompile Include="Public.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MDatabase.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkList.h">
@@ -72,6 +75,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Public.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MDatabase.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

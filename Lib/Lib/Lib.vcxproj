@@ -71,6 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <LibraryPath>C:\Program Files\MySQL\MySQL Server 5.7\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\MySQL\MySQL Server 5.7\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,7 +95,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;_Lib_Dev;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -110,6 +112,16 @@
     <PostBuildEvent>
       <Command>copy.bat</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>libmysql.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -156,6 +168,7 @@
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Hw_event.cpp" />
     <ClCompile Include="LinkList.cpp" />
+    <ClCompile Include="MDatabase.cpp" />
     <ClCompile Include="MSocket.cpp" />
     <ClCompile Include="MString.cpp" />
     <ClCompile Include="MyEvent.cpp" />
@@ -168,6 +181,7 @@
     <ClInclude Include="FileIO_DLL.h" />
     <ClInclude Include="Hw_event.h" />
     <ClInclude Include="LinkList.h" />
+    <ClInclude Include="MDatabase.h" />
     <ClInclude Include="MSocket.h" />
     <ClInclude Include="MString.h" />
     <ClInclude Include="MyEvent.h" />

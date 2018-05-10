@@ -54,7 +54,6 @@ void CFileIO::GetSize(const char* szPath, int64_t* Size)
         *Size = temp.__pos;
 #endif // _WIN32
         rewind(p);
-        cout << "FileSize:" << *Size << endl;
     }
     fclose(p);
 

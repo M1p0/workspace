@@ -1,21 +1,40 @@
 #include <iostream>
 #include <string>
-#include <cstdlib>
-#include <thread>
-#include <chrono>
-#include "Public.h"
-#include "CFileIO.h"
+#include <vector>
+#include <MDatabase.h>
 using namespace std;
 
-#define BUFF_SZIE 1024*1024
+vector<vector<string>> Result(1024);
 
 int main()
 {
-    char a[32 * 1024] = {0};
-    char* buffer=new char[BUFF_SZIE];
-    CFileIO File;
-    File.Read("d:\\test3.png",buffer ,0, BUFF_SZIE);
-   // File.Write("d:\\test2.png", buffer, 0, BUFF_SZIE);
+    int nRow;
+    MDatabase Conn;
+    int res = Conn.Connect("localhost", "root", "admin", "myim", 0);
+    Conn.SetEncoding("utf-8");
+    Conn.ExecSQL("select * from user", Result,nRow);
+
+
+    //Conn.ExecSQL("insert into user values(\"012\", \"user2\", \"test\")", Result, nRow);
+
+
+
+
+
+    cout << "[" << endl;
+    for (int j = 0; j < nRow; j++) {
+        cout << "[" << " ";
+        for (int k = 0; k < Result[0].size(); k++) {
+            cout << Result[j][k] << " ";
+        }
+        cout << "]" << endl;
+    }
+    cout << "]" << endl;
+
+
+
+
+
 }
 
 
