@@ -1,5 +1,8 @@
 #include "MDatabase.h"
 #include <iostream>
+#include <string.h>
+#include <string>
+#include <typeinfo>
 using namespace std;
 
 
@@ -13,10 +16,16 @@ MDatabase::~MDatabase()
     mysql_close(pConn);
 }
 
+void MDatabase::Init()
+{
+    pConn = mysql_init(NULL);
+}
+
 int MDatabase::Connect(const char * IP, const char * User, const char * Password, const char * DbName, int Port)
 {
-    if (!mysql_real_connect(pConn, IP, User, Password, DbName, Port, NULL, 0))
+    if (!mysql_real_connect(pConn, IP, User, Password, DbName, Port, NULL, CLIENT_MULTI_STATEMENTS))
     {
+        cout << mysql_error(pConn) << endl;
         return -1;
     }
     else
@@ -49,32 +58,28 @@ int MDatabase::ExecSQL(const char * SQL, vector<vector<string>> &Result, int &nR
     }
     else
     {
-        MYSQL_RES* Res = mysql_store_result(pConn);
-        if (Res == nullptr)
+        do
         {
-            return 0;
-        }
-        MYSQL_ROW Row;
-        nRow = mysql_num_fields(Res);
-        int Current = 0;
-        while (Row = mysql_fetch_row(Res))
-        {
-
-            for (int i = 0; i < nRow; i++)
+            MYSQL_RES* Res = mysql_store_result(pConn);
+            if (Res == nullptr)
             {
-                Result[Current].push_back(Row[i]);
+                continue;
             }
-            Current++;
-        }
+            MYSQL_ROW Row;
+            int Column = mysql_num_fields(Res);
+            int Current = 0;
+            while (Row = mysql_fetch_row(Res))
+            {
+                Result[Current].clear();
+                for (int i = 0; i < Column; i++)
+                {
+                    Result[Current].push_back(Row[i]);
+                }
+                Current++;
+            }
+            nRow = Current;
+            mysql_free_result(Res);
+        }while(!mysql_next_result(pConn));
         return 0;
     }
-
-
-}
-
-
-
-void MDatabase::Init()
-{
-    pConn = mysql_init(NULL);
 }

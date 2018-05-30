@@ -61,7 +61,7 @@ void CFileIO::GetSize(const char* szPath, int64_t* Size)
 
 
 
-void CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer_Size)
+int CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer_Size)
 {
     int64_t FileSize = 0;
     int64_t Current = Offset;
@@ -79,8 +79,7 @@ void CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer
     FILE *p = fopen(szPath, "rb");
     if (p == nullptr)
     {
-        cout << "Read Failed!" << endl;
-        return;
+        return -1;
     }
     else
     {
@@ -118,6 +117,7 @@ void CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer
             }
         }
     }
+    return 0;
     fclose(p);
     Init();
 }
