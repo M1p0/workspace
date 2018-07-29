@@ -5,22 +5,25 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\structure">
+      <UniqueIdentifier>{bf5697fc-7b51-4474-8980-97898b0448bb}</UniqueIdentifier>
+    </Filter>
     <Filter Include="头文件">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="头文件\structure">
+      <UniqueIdentifier>{17741137-28d9-47d9-9012-23023ebc8d1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LinkList.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="FileIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -48,11 +51,14 @@
     <ClCompile Include="MDatabase.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BitMap.cpp">
+      <Filter>源文件\structure</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkList.cpp">
+      <Filter>源文件\structure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LinkList.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="FileIO.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -79,6 +85,12 @@
     </ClInclude>
     <ClInclude Include="MDatabase.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BitMap.h">
+      <Filter>头文件\structure</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkList.h">
+      <Filter>头文件\structure</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -178,6 +178,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BitMap.cpp" />
     <ClCompile Include="CFileIO.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Hw_event.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="timecost.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BitMap.h" />
     <ClInclude Include="CFileIO.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="FileIO_DLL.h" />
