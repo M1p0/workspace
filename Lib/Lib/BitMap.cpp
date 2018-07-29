@@ -118,12 +118,24 @@ bool BitMap::Exist(unsigned int val)
 
 int BitMap::operator[](unsigned int pos)
 {
-    if (pos % 32 == 0)
+    if (pos >= this->Capacity())
     {
-        return (Data[pos / 32] & (1 << pos)) / pow(2, pos);
+        cout << "BitMap:out of bound." << endl;
+        return -1;
     }
     else
     {
-        return (Data[pos / 32 + 1] & (1 << pos)) / pow(2, pos);
+        pos = pos + 1;
+        int pos_array = 0;
+        if (pos % 32 == 0)
+        {
+            pos_array = pos / 32 - 1;   //数组从0开始
+        }
+        else
+        {
+            pos_array = pos / 32;
+        }
+        return ((Data[pos_array] & (1 << ((pos % 32) - 1))) >> ((pos % 32) - 1));
     }
+
 }
