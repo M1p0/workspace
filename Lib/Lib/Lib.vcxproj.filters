@@ -57,6 +57,9 @@
     <ClCompile Include="LinkList.cpp">
       <Filter>源文件\structure</Filter>
     </ClCompile>
+    <ClCompile Include="MemPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileIO.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="LinkList.h">
       <Filter>头文件\structure</Filter>
+    </ClInclude>
+    <ClInclude Include="MemPool.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

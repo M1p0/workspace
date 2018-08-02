@@ -184,6 +184,7 @@
     <ClCompile Include="Hw_event.cpp" />
     <ClCompile Include="LinkList.cpp" />
     <ClCompile Include="MDatabase.cpp" />
+    <ClCompile Include="MemPool.cpp" />
     <ClCompile Include="MSocket.cpp" />
     <ClCompile Include="MString.cpp" />
     <ClCompile Include="MyEvent.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Hw_event.h" />
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="MDatabase.h" />
+    <ClInclude Include="MemPool.h" />
     <ClInclude Include="MSocket.h" />
     <ClInclude Include="MString.h" />
     <ClInclude Include="MyEvent.h" />
