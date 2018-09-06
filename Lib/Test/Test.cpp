@@ -1,38 +1,55 @@
+#include <string.h>
 #include <iostream>
-#include <windows.h>
-#include <BitMap.h>
+#include <Public.h>
 #include <MemPool.h>
 using namespace std;
 
 
-class A
+int Cut(int *p, int n, int *r)
 {
-public:
-    A()
+    int q = -1;
+    if (r[n] >= 0)
     {
-        cout << "¹¹ÔìA" << endl;
+        return r[n];
     }
-    ~A()
+    if (n == 0)
     {
-        cout << "Îö¹¹A" << endl;
+        q = 0;
     }
+    else
+    {
+        for (int i = 1; i <= n; i++)
+        {
+            q = MAX(q,Cut(p, n - i, r)+ p[i]);
+        }
+    }
+    r[n] = q;
+    return q;
+}
 
-};
 
-
-int main()
+int MemoCut(int *p, int n)
 {
-    MemPool pool;
+    int *r = new int[n + 1];
+    for (int i = 0; i <= n; i++)
+    {
+        r[i] = -1;
+    }
 
+    return Cut(p, n, r);
 
-    A *a = new(pool) A;
-    Destroy(a, pool);
-    cout << pool.Capacity() << endl;
-
-    
 
 }
 
 
 
 
+
+int main()
+{
+
+    int p[11] = {0, 1,5,8,9,10,17,17,20,24,30 };
+
+    cout << MemoCut(p, 7) << endl;
+    
+}

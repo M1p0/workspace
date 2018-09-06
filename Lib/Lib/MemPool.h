@@ -47,3 +47,11 @@ inline void operator delete(void *p, MemPool &mempool)
 {
     Destroy(p, mempool);
 }
+/*
+int main()
+{
+    MemPool pool;
+    int *array = new(pool) int[1024];
+    Destroy(array, pool);
+}
+*/
