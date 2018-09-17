@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include <mutex>
+#include <iostream>
 using namespace std;
 struct  Buffer
 {
@@ -18,6 +19,7 @@ public:
     void* Allocate(size_t uSize);
     void Deallocate(void *p);
     void SetBlockSize(size_t uSize);
+    size_t GetBlockSize();
     size_t Capacity();
 private:
     mutex mtx;
@@ -25,12 +27,6 @@ private:
     size_t uBlockSize;
 
 };
-
-inline void* operator new(size_t uSize, MemPool &mempool)
-{
-    return mempool.Allocate(uSize);
-};
-
 
 
 
@@ -43,10 +39,16 @@ template<class T> inline void Destroy(T *p, MemPool &mempool)
     }
 };
 
+inline void* operator new(size_t uSize, MemPool &mempool)
+{
+    return mempool.Allocate(uSize);
+};
+
 inline void operator delete(void *p, MemPool &mempool)
 {
     Destroy(p, mempool);
 }
+
 /*
 int main()
 {

@@ -93,6 +93,12 @@ void MemPool::SetBlockSize(size_t uSize)
     this->uBlockSize = uSize;
 }
 
+size_t MemPool::GetBlockSize()
+{
+    return this->uBlockSize;
+}
+
+
 size_t MemPool::Capacity()
 {
     size_t uCapacity = 0;
