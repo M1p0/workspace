@@ -14,16 +14,16 @@ MSocket::~MSocket()
 #endif
 }
 
-int MSocket::Send(SOCKET s,const char* Msg, int Length)
+int MSocket::Send(SOCKET s, const char* Msg, int Length)
 {
     int current = 0;
     int retVal = 0;
     while (current < Length)
     {
 #ifdef _WIN32
-        retVal = send(s, Msg+current, Length - current, 0);
+        retVal = send(s, Msg + current, Length - current, 0);
 #else
-        retVal = send(s, Msg+current, Length - current, MSG_NOSIGNAL);
+        retVal = send(s, Msg + current, Length - current, MSG_NOSIGNAL);
 #endif
         if (retVal <= 0)
         {
@@ -39,25 +39,42 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
 {
     int current = 0;
     int retVal = 0;
+    fd_set fds;
+    timeval tv = { 0,0 };
+    FD_ZERO(&fds);
+    FD_SET(s, &fds);
+    int recv_count = 0;
     while (current < Length)
     {
-#ifdef _WIN32
-        retVal = recv(s, Msg+current, Length- current, 0);
-#else
-        retVal = recv(s, Msg+current, Length- current, MSG_NOSIGNAL);
-#endif
-        if (retVal <= 0)
+        int result = select(0, &fds, NULL, NULL, &tv);  //判断缓冲区是否还有数据
+        if (result > 0||recv_count==0)
         {
-            if (current!=0)
+#ifdef _WIN32
+
+            retVal = recv(s, Msg + current, Length - current, 0);
+
+#else
+            retVal = recv(s, Msg + current, Length - current, MSG_NOSIGNAL);
+
+#endif
+            ++recv_count;
+            if (retVal <= 0)
             {
-                return current;
+                if (current != 0)
+                {
+                    return current;
+                }
+                else
+                {
+                    return -1;
+                }
             }
-            else
-            {
-                return -1;
-            }
+            current = current + retVal;
         }
-        current = current + retVal;
+        else
+        {
+            break;
+        }
     }
     return current;
 }
@@ -151,7 +168,7 @@ int MSocket::Init()
 #else
     return 0;
 #endif
-}
+    }
 
 int MSocket::Getpeername(SOCKET Client, Cli_Info & CInfo)
 {
@@ -163,7 +180,7 @@ int MSocket::Getpeername(SOCKET Client, Cli_Info & CInfo)
 #endif // _WIN32
 
 
-    if (getpeername(Client, (struct sockaddr *)&Sa_In, &len)==0)
+    if (getpeername(Client, (struct sockaddr *)&Sa_In, &len) == 0)
     {
         CInfo.ip = inet_ntoa(Sa_In.sin_addr);
         CInfo.port = ntohs(Sa_In.sin_port);  //IPV6需要使用inet_pton()

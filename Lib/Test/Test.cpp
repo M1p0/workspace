@@ -94,17 +94,117 @@ int solve(int money)
 //    cout << nArr[5][12] << endl;
 //    return 0;
 //}
-//
 
+#define MAXSIZE 1024
+template<class T>
+class StaticList
+{
+public:
+    StaticList(int size)
+    {
+        VData.resize(size);
+        VData[Head].bUsed = true;
+        for (int i = 1; i < size; i++)
+        {
+            VData[i].bUsed = false;
+        }
+    };
+    struct Node
+    {
+        T data;
+        int next=0;
+        int front=0;
+        bool bUsed = false;
+    };
+    bool Insert(const T&e);
+    bool Delete(int Pos);
+    int Find(const T&e);
+private:
+    int NextSpace = 1;
+    int Head = 0;
+    vector<Node> VData;
+};
 
-
-int main() 
+template<class T>
+bool StaticList<T>::Insert(const T&e)
 {
 
-    int a = 0x12345678;
-    char*p = (char*)&a;
-    cout <<hex <<(int)*p << endl;
-    
+    Node node;
+    node.bUsed = true;
+    node.data = e;
+    node.front = Head;
+    node.next = VData[Head].next;
+
+    if (VData[NextSpace].bUsed != false)
+    {
+        for (int i = 0; i < VData.size(); i++)
+        {
+            if (VData[i].bUsed == false)
+            {
+                NextSpace = i;
+                break;
+            }
+        }
+    }
+    VData[Head].next = NextSpace;
+    VData[NextSpace] = node;
+    VData[node.next].front = NextSpace;
+    VData[Head].front = 0;
+
+    return true;
+}
+
+template<class T>
+bool StaticList<T>::Delete(int Pos)
+{
+    int DelPos;
+    for (int i = 0; i <= Pos; i++)
+    {
+        DelPos = VData.next;
+    }
+    if (DelPos == 0)
+    {
+        Head = VData[DelPos].next;
+        VData[DelPos].front = 0;
+    }
+    int NextSpace = VData[VData[DelPos].front].next;
+    VData[VData[DelPos].front].next = VData[DelPos].next;
+    VData[DelPos].data = 0;
+    VData[DelPos].next = 0;
+    VData[DelPos].front = 0;
+    VData[DelPos].bUsed = false;
+    return true;
+}
+
+
+template<class T>
+int StaticList<T>::Find(const T & e)
+{
+    int Pos = Head.next;
+    for (int i=0;i<VData.size();i++)
+    {
+        if (VData[Pos].data == e)
+        {
+            return Pos
+        }
+        else
+        {
+            Pos = VData[Pos].next;
+        }
+    }
+    return -1;
+}
+
+
+
+int main()
+{
+    StaticList<int> List(1024);
+    List.Insert(1);
+    List.Insert(2);
+
+
 
 }
+
 
