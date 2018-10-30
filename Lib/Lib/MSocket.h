@@ -49,6 +49,7 @@ public:
     int Close(SOCKET s);
     SOCKET Accept(SOCKET s);
     int Getpeername(SOCKET Client, Cli_Info &CInfo);
+    int GetHostByName(const char* HostName, char* HostIP, int Size);
 private:
 #ifdef _WIN32
     WSADATA wsd;

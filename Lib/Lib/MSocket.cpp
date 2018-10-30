@@ -40,14 +40,25 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
     int current = 0;
     int retVal = 0;
     fd_set fds;
-    timeval tv = { 0,0 };
     FD_ZERO(&fds);
-    FD_SET(s, &fds);
     int recv_count = 0;
     while (current < Length)
     {
-        int result = select(0, &fds, NULL, NULL, &tv);  //判断缓冲区是否还有数据
-        if (result > 0||recv_count==0)
+        int result = 0;
+        if (recv_count == 0)
+        {
+            result = 1;
+        }
+        else
+        {
+            timeval tv = { 0,10 };
+            if (!FD_ISSET(s, &fds))
+            {
+                FD_SET(s, &fds);
+            }
+            result = select(0, &fds, NULL, NULL, &tv);  //判断缓冲区是否还有数据
+        }
+        if (result > 0)
         {
 #ifdef _WIN32
 
@@ -168,9 +179,9 @@ int MSocket::Init()
 #else
     return 0;
 #endif
-    }
+}
 
-int MSocket::Getpeername(SOCKET Client, Cli_Info & CInfo)
+int MSocket::Getpeername(SOCKET Client, Cli_Info &CInfo)
 {
     sockaddr_in Sa_In;
 #ifdef _WIN32
@@ -190,5 +201,28 @@ int MSocket::Getpeername(SOCKET Client, Cli_Info & CInfo)
     {
         return -1;
     }
+}
+
+int MSocket::GetHostByName(const char * HostName, char * HostIP,int Size)
+{
+    hostent* pHE = gethostbyname(HostName);
+    if (pHE&&HostIP&&HostName)
+    {
+        if (strlen(inet_ntoa(*((in_addr*)pHE->h_addr_list[0])))>Size)
+        {
+            return -1;
+        }
+        else
+        {
+            strcpy(HostIP, inet_ntoa(*((in_addr*)pHE->h_addr_list[0])));
+            return 0;
+        }
+        
+    }
+    else
+    {
+        return -1;
+    }
+
 }
 
