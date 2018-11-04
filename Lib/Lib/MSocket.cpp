@@ -56,7 +56,7 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
             {
                 FD_SET(s, &fds);
             }
-            result = select(0, &fds, NULL, NULL, &tv);  //判断缓冲区是否还有数据
+            result = select(s+1, &fds, NULL, NULL, &tv);  //判断缓冲区是否还有数据
         }
         if (result > 0)
         {

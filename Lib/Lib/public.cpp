@@ -3,6 +3,7 @@ using namespace std;
 
 int Program_Mutex()
 {
+#ifdef _WIN32
     HANDLE hMutex = NULL;
     LPCTSTR lpszName = "APPMutex";
     int nRet;
@@ -32,4 +33,7 @@ int Program_Mutex()
     }
     }
     return nRet;
+#endif // _WIN32
 }
+
+

@@ -38,6 +38,7 @@ void * MemPool::Allocate(size_t uSize)
                 it->bUsed = true;
                 bAllocated = true;
                 pRtn = it->pBufferAddress;
+                break;
             }
             else
             {
