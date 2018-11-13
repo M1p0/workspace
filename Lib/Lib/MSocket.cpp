@@ -51,7 +51,7 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
         }
         else
         {
-            timeval tv = { 0,10 };
+            timeval tv = { 0,1 };
             if (!FD_ISSET(s, &fds))
             {
                 FD_SET(s, &fds);
