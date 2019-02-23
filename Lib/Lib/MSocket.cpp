@@ -18,6 +18,19 @@ int MSocket::Send(SOCKET s, const char* Msg, int Length)
 {
     int current = 0;
     int retVal = 0;
+    if (Length==0)
+    {
+        send(s, Msg, 0, 0);
+        int error = WSAGetLastError();
+        if (error!=0)
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
     while (current < Length)
     {
 #ifdef _WIN32
@@ -51,7 +64,7 @@ int MSocket::Recv(SOCKET s, char * Msg, int Length)
         }
         else
         {
-            timeval tv = { 0,1 };
+            timeval tv = { 0,0 };
             if (!FD_ISSET(s, &fds))
             {
                 FD_SET(s, &fds);
