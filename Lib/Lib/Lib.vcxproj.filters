@@ -48,9 +48,6 @@
     <ClCompile Include="Public.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MDatabase.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="BitMap.cpp">
       <Filter>源文件\structure</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Public.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MDatabase.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BitMap.h">

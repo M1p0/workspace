@@ -117,9 +117,9 @@ int CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer_
             }
         }
     }
-    return 0;
     fclose(p);
     Init();
+    return Current;
 }
 
 void CFileIO::Write(const char* szPath, const char* szData, long Offset, int64_t Buffer_Size)

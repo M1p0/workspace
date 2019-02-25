@@ -22,7 +22,7 @@
     <ProjectGuid>{F6CBE786-BD6A-40EA-AC0F-C9D8DFE7B516}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Lib</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -121,10 +121,12 @@
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy.bat</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>libmysql.lib</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>
@@ -173,13 +175,15 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>libmysql.lib</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>copy.bat</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -191,7 +195,6 @@
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Hw_event.cpp" />
     <ClCompile Include="LinkList.cpp" />
-    <ClCompile Include="MDatabase.cpp" />
     <ClCompile Include="MemPool.cpp" />
     <ClCompile Include="MSocket.cpp" />
     <ClCompile Include="MString.cpp" />
@@ -206,7 +209,6 @@
     <ClInclude Include="FileIO_DLL.h" />
     <ClInclude Include="Hw_event.h" />
     <ClInclude Include="LinkList.h" />
-    <ClInclude Include="MDatabase.h" />
     <ClInclude Include="MemPool.h" />
     <ClInclude Include="MSocket.h" />
     <ClInclude Include="MString.h" />
