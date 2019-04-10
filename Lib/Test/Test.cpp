@@ -7,13 +7,17 @@
 using namespace std;
 
 
-int main()
+void* operator new(size_t size)
 {
-    int a = 10;
-    char str[10] = { 0 };
-    Mitoa(a,str,10);
+    cout << "operator new:" << size << endl;
+    return malloc(size);
 }
 
+int main()
+{
+    double* a = new double(5);
+    getchar();
+}
 
 
 

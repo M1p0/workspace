@@ -79,6 +79,7 @@ int CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer_
     FILE *p = fopen(szPath, "rb");
     if (p == nullptr)
     {
+        fclose(p);
         return -1;
     }
     else
@@ -122,13 +123,14 @@ int CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer_
     return Current;
 }
 
-void CFileIO::Write(const char* szPath, const char* szData, long Offset, int64_t Buffer_Size)
+int CFileIO::Write(const char* szPath, const char* szData, long Offset, int64_t Data_Size)
 {
+    int32_t ret = 0;
     FILE *p = fopen(szPath, "ab+");
     if (p == nullptr)
     {
         cout << "Failed to open File!" << endl;
-        return;
+        ret = -1;
     }
     else
     {
@@ -137,9 +139,11 @@ void CFileIO::Write(const char* szPath, const char* szData, long Offset, int64_t
 #else
         fseeko64(p, Offset, SEEK_SET);
 #endif // _WIN32
-        fwrite(szData, 1, Buffer_Size, p);
+        fwrite(szData, 1, Data_Size, p);
+        ret = Data_Size;
     }
     fclose(p);
+    return ret;
 }
 
 
