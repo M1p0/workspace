@@ -179,19 +179,19 @@ struct  Point
 };
 
 
-int main()
-{
-    InfluenceMap map(20, 20);
-    map.SetMaxValue(9);
-    Enemy* enemy = new Enemy(5, 5);
-    enemy->InsertInfluence(2, 8);
-    map.InsertEnemy(enemy);
-
-    enemy = new Enemy(10, 5);
-    enemy->InsertInfluence(3, 1);
-    map.InsertEnemy(enemy);
-
-    map.Update();
-    map.Print();
-}
+//int main()
+//{
+//    InfluenceMap map(20, 20);
+//    map.SetMaxValue(9);
+//    Enemy* enemy = new Enemy(5, 5);
+//    enemy->InsertInfluence(2, 8);
+//    map.InsertEnemy(enemy);
+//
+//    enemy = new Enemy(10, 5);
+//    enemy->InsertInfluence(3, 1);
+//    map.InsertEnemy(enemy);
+//
+//    map.Update();
+//    map.Print();
+//}
 

@@ -194,6 +194,7 @@
     <ClCompile Include="CFileIO.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Hw_event.cpp" />
+    <ClCompile Include="InfluenceMap_demo.cpp" />
     <ClCompile Include="LinkList.cpp" />
     <ClCompile Include="MemPool.cpp" />
     <ClCompile Include="MSocket.cpp" />

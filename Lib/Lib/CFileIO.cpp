@@ -61,7 +61,7 @@ void CFileIO::GetSize(const char* szPath, int64_t* Size)
 
 
 
-int CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer_Size)
+int64_t CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer_Size)
 {
     int64_t FileSize = 0;
     int64_t Current = Offset;
@@ -123,9 +123,9 @@ int CFileIO::Read(const char* szPath, char* Buffer, long Offset, int64_t Buffer_
     return Current;
 }
 
-int CFileIO::Write(const char* szPath, const char* szData, long Offset, int64_t Data_Size)
+int64_t CFileIO::Write(const char* szPath, const char* szData, long Offset, int64_t Data_Size)
 {
-    int32_t ret = 0;
+    int64_t ret = 0;
     FILE *p = fopen(szPath, "ab+");
     if (p == nullptr)
     {
