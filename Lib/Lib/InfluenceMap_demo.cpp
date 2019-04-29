@@ -2,17 +2,24 @@
 #include <iostream>
 #include <vector>
 #include <windows.h>
+#include <list>
 using namespace std;
 
 enum struct ColorInfo :int
 {
     BLUE = 1,
     GREEN = 2,
+    YELLOW = 14,
     RED = 4,
     WHITE = 15
 };
 
-
+struct Influence_Info
+{
+    int area_start;
+    int area_end;
+    int value;
+};
 
 void SetColor(int color)
 {
@@ -25,16 +32,15 @@ public:
     Enemy(int x, int y) :pos_x(x), pos_y(y) {};
     int pos_x;
     int pos_y;
-    vector<pair<int, int>> Vec_Influence;
+    list<Influence_Info> List_Influence;
     void SetPos(int x, int y);
-    void InsertInfluence(int area, int value);
+    void SetInfluence(Influence_Info info);
 private:
 };
 
-
-void Enemy::InsertInfluence(int area, int value)
+void Enemy::SetInfluence(Influence_Info info)
 {
-    Vec_Influence.push_back(pair<int, int>(area, value));
+    List_Influence.push_back(info);
 }
 
 void Enemy::SetPos(int x, int y)
@@ -104,26 +110,50 @@ void InfluenceMap::Update()
 {
     for (auto it = Vec_Enemy.begin(); it != Vec_Enemy.end(); ++it)
     {
-        for (auto it2 = (*it)->Vec_Influence.begin(); it2 != (*it)->Vec_Influence.end(); ++it2)
+        for (auto it2 = (*it)->List_Influence.begin(); it2 != (*it)->List_Influence.end(); ++it2)
         {
-            int area = it2->first;  //area
-            int value = it2->second; //value
             int enemy_x = (*it)->pos_x;
             int enemy_y = (*it)->pos_y;
 
+            int area_start = it2->area_start;
+            int area_end = it2->area_end;
+            int value = it2->value;
 
-            for (int influence_y = enemy_y - area; influence_y <= enemy_y + area; ++influence_y)
+
+            for (int pos_x = enemy_x - area_start - 1; pos_x <= enemy_x + area_end; ++pos_x)
             {
-                for (int influence_x = enemy_x - area; influence_x <= enemy_x + area; ++influence_x)
+                for (int pos_y = enemy_y - area_start - 1; pos_y <= enemy_y + area_end; ++pos_y)
                 {
-                    real_map->at(influence_y).at(influence_x).value += value;
-                    if (real_map->at(influence_y).at(influence_x).value > Max_Value)
-                        real_map->at(influence_y).at(influence_x).value = Max_Value;
-                    real_map->at(influence_y).at(influence_x).color = GetColor(real_map->at(influence_y).at(influence_x).value);
+                    if ((pos_x > enemy_x - area_start && pos_x < enemy_x + area_start) &&
+                        (pos_y > enemy_y - area_start && pos_y < enemy_y + area_start))
+                    {
+                        continue;
+                    }
+                    real_map->at(pos_y).at(pos_x).value += value;
+                    if (real_map->at(pos_y).at(pos_x).value > Max_Value)
+                    {
+                        real_map->at(pos_y).at(pos_x).value = Max_Value;
+                    }
+                    real_map->at(pos_y).at(pos_x).color = GetColor(real_map->at(pos_y).at(pos_x).value);
                 }
-                real_map->at(enemy_y).at(enemy_x).color = GetColor(0);
-                real_map->at(enemy_y).at(enemy_x).value = Max_Value;
             }
+            real_map->at(enemy_y).at(enemy_x).color = GetColor(0);
+            real_map->at(enemy_y).at(enemy_x).value = Max_Value;
+
+
+
+            //for (int round = 0; round < area_end - area_start; ++round)
+            //{
+            //    for (int pos_x = enemy_x - round; pos_x <= enemy_x + round; ++pos_x)
+            //    {
+            //        int pos_y = enemy_y - round;
+            //        real_map->at(pos_y).at(pos_x).value += value;
+            //        real_map->at(pos_y).at(pos_x).color = GetColor(real_map->at(pos_y).at(pos_x).value);
+            //    }
+
+            //}
+            //real_map->at(enemy_y).at(enemy_x).color = GetColor(0);
+            //real_map->at(enemy_y).at(enemy_x).value = Max_Value;
 
         }
     }
@@ -148,18 +178,30 @@ void InfluenceMap::Print()
 
 int InfluenceMap::GetColor(int value)
 {
-    int ret = (int)ColorInfo::WHITE;;
+    int ret = (int)ColorInfo::WHITE;
     switch (value)
     {
+    case 1:
+    case 2:
+    case 3:
+        ret = (int)ColorInfo::GREEN;
+        break;
+
+    case 4:
+    case 5:
+    case 6:
+        ret = (int)ColorInfo::BLUE;
+        break;
+
+    case 7:
+    case 8:
+        ret = (int)ColorInfo::YELLOW;
+        break;
+
     case 9:
         ret = (int)ColorInfo::RED;
         break;
-    case 8:
-        ret = (int)ColorInfo::BLUE;
-        break;
-    case 1:
-        ret = (int)ColorInfo::GREEN;
-        break;
+
     default:
         ret = (int)ColorInfo::WHITE;
         break;
@@ -178,20 +220,27 @@ struct  Point
     int y;
 };
 
-
+//
 //int main()
 //{
-//    InfluenceMap map(20, 20);
+//
+//    InfluenceMap map(30, 20);
 //    map.SetMaxValue(9);
 //    Enemy* enemy = new Enemy(5, 5);
-//    enemy->InsertInfluence(2, 8);
+//    enemy->SetInfluence({ 2,3,7 });
+//    enemy->SetInfluence({ 0,1,9 });
 //    map.InsertEnemy(enemy);
 //
 //    enemy = new Enemy(10, 5);
-//    enemy->InsertInfluence(3, 1);
+//    enemy->SetInfluence({ 1,2,1 });
 //    map.InsertEnemy(enemy);
+//
+//    enemy = new Enemy(14, 9);
+//    enemy->SetInfluence({ 1,2,5 });
+//    map.InsertEnemy(enemy);
+//
 //
 //    map.Update();
 //    map.Print();
 //}
-
+//
